@@ -10,3 +10,7 @@ One page that opens on David and Goliath (1 Samuel 17, NIV) and reads any passag
 - Icon: `Bible.icon` (Icon Composer), made by `make_brand.py` from the brand skill. Glyph is an open book with a ribbon, accent `#1745a8`. Rebuild through the `brand` skill, never hand-edit `icon-1024.png`.
 - `docs/roadmap.md` holds the parity matrix and version plan. Versions follow honest semver: features are minors, fixes are patches, a major only on Joshua's call.
 - Never add accounts, analytics or ads. Free or $1, nothing else.
+
+## The loop
+
+A `/loop` builds the roadmap in `docs/roadmap.md` one version at a time. Its state, next steps and restart prompt are in [docs/LOOP-HANDOFF.md](docs/LOOP-HANDOFF.md). Read it before picking the next version or touching the store steps.
