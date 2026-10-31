@@ -58,3 +58,16 @@ final class TodayTests: XCTestCase {
         XCTAssertNil(Bible.shared.ref("Hezekiah 1:1"))
     }
 }
+
+final class NotesTests: XCTestCase {
+    func testNotesPersistAndBlankDeletes() {
+        let d = UserDefaults(suiteName: "notes-test")!
+        d.removePersistentDomain(forName: "notes-test")
+        let r = VerseRef(place: .home, verse: 45)
+        Marks(defaults: d).setNote(r, "  In the name of the LORD  ")
+        XCTAssertEqual(Marks(defaults: d).note(r), "In the name of the LORD")
+        Marks(defaults: d).setNote(r, "   ")
+        XCTAssertNil(Marks(defaults: d).note(r))
+        XCTAssertEqual(Marks.ref(r.key), r)
+    }
+}

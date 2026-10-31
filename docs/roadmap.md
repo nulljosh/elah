@@ -21,7 +21,7 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 | Keyword search across the Bible | yes | yes, offline | done (0.6) |
 | Parallel versions side by side | yes | no | todo |
 | Verse of the day | yes | yes | done (0.7) |
-| Highlights, bookmarks, notes | yes | highlights and bookmarks | partial (0.4) |
+| Highlights, bookmarks, notes | yes | yes, on the device | done (0.9) |
 | Share a verse | yes | as text | partial (0.4) |
 | Reading plans and streaks | yes | no | todo |
 | Audio Bible | yes | on-device voice | done (0.8) |
@@ -44,8 +44,8 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Search every verse, results grouped by book | Olive Tree, Logos | M | done (0.6) |
 | Today screen: continue reading, verse of the day | Bible Gateway, YouVersion | M | done (0.7) |
 | Listen: on-device voice reads the chapter, verse follows | Dwell, YouVersion, ESV | M | done (0.8) |
-| Notes on a verse, all notes in one list | Bible Gateway, ESV, Olive Tree | M | 0.9 |
-| Saved tab: highlights, bookmarks, notes | YouVersion, ESV | S | 0.9 |
+| Notes on a verse, all notes in one list | Bible Gateway, ESV, Olive Tree | M | done (0.9) |
+| Saved tab: highlights, bookmarks, notes | YouVersion, ESV | S | done (0.9) |
 | Reading plans with a daily check-off | YouVersion, ESV, Dwell | L | 2.0 |
 | Cross references and Strong's numbers (public domain KJV data) | Olive Tree, Blue Letter Bible, Logos | L | 3.0 |
 | Home Screen widget and Mac desktop widget, verse of the day | YouVersion | M | 4.0 |
@@ -64,7 +64,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.6 search: every KJV verse on the device, all words must match, grouped by book (done)
 - 0.7 Today tab: greeting, continue reading, a verse of the day from 67 well-known verses, share (done)
 - 0.8 listen: the system voice reads the chapter and outlines the verse it is on, keeps playing in the background; Search moved to its own tab (done)
-- 0.9 notes and the Saved tab
+- 0.9 notes on any verse and a Saved tab with bookmarks, highlights and notes in canon order (done)
 - 1.0 first major, only on Joshua's call: full QA on every platform, App Store listing live, Mobbin pass, opus-ad film
 - 2.0 reading plans
 - 3.0 cross references and Strong's

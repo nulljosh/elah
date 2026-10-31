@@ -16,11 +16,27 @@ final class Marks: ObservableObject {
     private let defaults: UserDefaults
     @Published private(set) var highlights: [String: Int]
     @Published private(set) var bookmarks: Set<String>
+    @Published private(set) var notes: [String: String]
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         highlights = defaults.dictionary(forKey: "highlights") as? [String: Int] ?? [:]
         bookmarks = Set(defaults.stringArray(forKey: "bookmarks") ?? [])
+        notes = defaults.dictionary(forKey: "notes") as? [String: String] ?? [:]
+    }
+
+    func note(_ r: VerseRef) -> String? { notes[r.key] }
+
+    func setNote(_ r: VerseRef, _ text: String) {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        notes[r.key] = t.isEmpty ? nil : t
+        defaults.set(notes, forKey: "notes")
+    }
+
+    /// "b.c.v" back to a verse, sorted in canon order by the callers.
+    static func ref(_ key: String) -> VerseRef? {
+        let n = key.split(separator: ".").compactMap { Int($0) }
+        return n.count == 3 ? VerseRef(place: Place(book: n[0], chapter: n[1]), verse: n[2]) : nil
     }
 
     func highlight(_ r: VerseRef) -> Int? { highlights[r.key] }
@@ -49,6 +65,8 @@ struct VerseRow: View {
     @ObservedObject var marks: Marks
     let ref: VerseRef
     let cite: String
+    @State private var editing = false
+    @State private var draft = ""
 
     var body: some View {
         let mark = marks.highlight(ref)
@@ -56,6 +74,10 @@ struct VerseRow: View {
             (Text("\(number) ").font(.system(size: size * 0.6, weight: .semibold)).foregroundColor(Theme.secondary)
              + Text(text).font(.system(size: size, design: serif ? .serif : .default)))
                 .lineSpacing(size * spacing)
+            if marks.note(ref) != nil {
+                Image(systemName: "note.text").font(.caption).foregroundStyle(Theme.accent).padding(.leading, 6)
+                    .accessibilityLabel("Has a note")
+            }
             if marks.isBookmarked(ref) {
                 Image(systemName: "bookmark.fill").font(.caption).foregroundStyle(Theme.accent).padding(.leading, 6)
                     .accessibilityLabel("Bookmarked")
@@ -74,8 +96,27 @@ struct VerseRow: View {
                 if mark != nil { Button("Remove Highlight", role: .destructive) { marks.setHighlight(ref, nil) } }
             }
             Button(marks.isBookmarked(ref) ? "Remove Bookmark" : "Bookmark") { marks.toggleBookmark(ref) }
+            Button(marks.note(ref) == nil ? "Add Note" : "Edit Note") { draft = marks.note(ref) ?? ""; editing = true }
             Button("Copy") { copy("\(text)\n\(cite)") }
             ShareLink(item: "\(text)\n\(cite)")
+        }
+        .sheet(isPresented: $editing) {
+            NavigationStack {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(text).font(.callout).foregroundStyle(.secondary).lineLimit(4)
+                    TextEditor(text: $draft).font(.body).scrollContentBackground(.hidden)
+                        .padding(8).background(Theme.surface, in: RoundedRectangle(cornerRadius: 20))
+                }
+                .padding(20)
+                .navigationTitle(cite)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { editing = false } }
+                    ToolbarItem(placement: .confirmationAction) { Button("Save") { marks.setNote(ref, draft); editing = false } }
+                }
+            }
+            #if os(macOS)
+            .frame(minWidth: 420, minHeight: 320)
+            #endif
         }
     }
 

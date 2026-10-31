@@ -15,6 +15,7 @@ struct BibleApp: App {
 
 struct RootView: View {
     @AppStorage("tab") private var tab = "bible"
+    @StateObject private var marks = Marks()
     var body: some View {
         TabView(selection: $tab) {
             TodayView { tab = "bible" }
@@ -25,7 +26,12 @@ struct RootView: View {
                 UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
             }
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }.tag("search")
+            SavedView { p in
+                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
+            }
+                .tabItem { Label("Saved", systemImage: "bookmark") }.tag("saved")
         }
+        .environmentObject(marks)
         .tint(Theme.accent)
     }
 }
@@ -40,7 +46,7 @@ struct ReaderView: View {
     @State private var reading = false
     @AppStorage("serif") private var serif = false
     @AppStorage("spacing") private var spacing = 0.35
-    @StateObject private var marks = Marks()
+    @EnvironmentObject private var marks: Marks
     @StateObject private var speaker = Speaker()
     private let bible = Bible.shared
 
