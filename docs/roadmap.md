@@ -21,8 +21,8 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 | Keyword search across the Bible | yes | no | todo |
 | Parallel versions side by side | yes | no | todo |
 | Verse of the day | yes | no | todo |
-| Highlights, bookmarks, notes | yes | no | todo |
-| Share a verse as an image | yes | no | todo |
+| Highlights, bookmarks, notes | yes | highlights and bookmarks | partial (0.4) |
+| Share a verse | yes | as text | partial (0.4) |
 | Reading plans and streaks | yes | no | todo |
 | Audio Bible | yes | no | todo |
 | Cross references and footnotes | yes | inside the frame only | partial |
@@ -39,7 +39,7 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 |---|---|---|---|
 | Native reader, offline KJV, chapter steps, book and chapter grid | all | M | done (0.3) |
 | Reference chip in the top bar opens the picker | YouVersion, Bible Gateway | S | done (0.3) |
-| Tap a verse: highlight in four colours, copy, share, bookmark | YouVersion, ESV, Bible Gateway | M | 0.4 |
+| Tap a verse: highlight in four colours, copy, share, bookmark | YouVersion, ESV, Bible Gateway | M | done (0.4) |
 | Reading settings sheet: size, serif or sans, line spacing, sepia | YouVersion, Dwell, Bible Gateway | S | 0.5 |
 | Search every verse, results grouped by book | Olive Tree, Logos | M | 0.6 |
 | Today screen: continue reading, verse of the day | Bible Gateway, YouVersion | M | 0.7 |
@@ -59,7 +59,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.1 one page over BibleGateway (done)
 - 0.2 brand kit, blue icon, design system, repo, landing (done)
 - 0.3 native SwiftUI app for iPhone, iPad and Mac: bundled KJV, David and Goliath home, chapter steps, book grid, text size, NIV opens BibleGateway in a Safari sheet (done)
-- 0.4 verse actions: highlight, copy, share, bookmark
+- 0.4 verse actions: press and hold a verse to highlight in four colours, bookmark, copy or share (done)
 - 0.5 reading settings sheet
 - 0.6 search
 - 0.7 Today screen and verse of the day

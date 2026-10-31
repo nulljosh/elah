@@ -20,6 +20,7 @@ struct ReaderView: View {
     @State private var showNIV = false
     @Environment(\.openURL) private var openURL
     @State private var picking = false
+    @StateObject private var marks = Marks()
     private let bible = Bible.shared
 
     private var place: Place { Place(book: book, chapter: chapter) }
@@ -43,10 +44,8 @@ struct ReaderView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(bible.title(place)).font(.largeTitle.bold()).padding(.bottom, 8)
                 ForEach(Array(bible.verses(place).enumerated()), id: \.offset) { i, v in
-                    (Text("\(i + 1) ").font(.system(size: textSize * 0.6, weight: .semibold)).foregroundColor(Theme.secondary)
-                     + Text(v).font(.system(size: textSize)))
-                        .lineSpacing(textSize * 0.35)
-                        .textSelection(.enabled)
+                    let ref = VerseRef(place: place, verse: i + 1)
+                    VerseRow(number: i + 1, text: v, size: textSize, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
                 }
                 HStack {
                     if let p = bible.previous(place) { chapterButton("chevron.left", bible.title(p)) { go(p) } }

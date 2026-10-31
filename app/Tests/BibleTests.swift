@@ -25,3 +25,19 @@ final class BibleTests: XCTestCase {
         XCTAssertEqual(bible.gatewayURL(.home, .niv).absoluteString, "https://www.biblegateway.com/passage/?search=1%20Samuel%2017&version=NIV")
     }
 }
+
+final class MarksTests: XCTestCase {
+    func testHighlightAndBookmarkPersist() {
+        let d = UserDefaults(suiteName: "marks-test")!
+        d.removePersistentDomain(forName: "marks-test")
+        let r = VerseRef(place: .home, verse: 49)
+        let m = Marks(defaults: d)
+        m.setHighlight(r, 2); m.toggleBookmark(r)
+        let again = Marks(defaults: d)
+        XCTAssertEqual(again.highlight(r), 2)
+        XCTAssertTrue(again.isBookmarked(r))
+        again.setHighlight(r, nil); again.toggleBookmark(r)
+        XCTAssertNil(Marks(defaults: d).highlight(r))
+        XCTAssertFalse(Marks(defaults: d).isBookmarked(r))
+    }
+}
