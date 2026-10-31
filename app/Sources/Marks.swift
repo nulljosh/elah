@@ -66,6 +66,7 @@ struct VerseRow: View {
     let ref: VerseRef
     let cite: String
     @State private var editing = false
+    @State private var sharingImage = false
     @State private var draft = ""
 
     var body: some View {
@@ -99,7 +100,9 @@ struct VerseRow: View {
             Button(marks.note(ref) == nil ? "Add Note" : "Edit Note") { draft = marks.note(ref) ?? ""; editing = true }
             Button("Copy") { copy("\(text)\n\(cite)") }
             ShareLink(item: "\(text)\n\(cite)")
+            Button("Share as Image", systemImage: "photo") { sharingImage = true }
         }
+        .sheet(isPresented: $sharingImage) { ShareImageSheet(text: text, cite: cite) }
         .sheet(isPresented: $editing) {
             NavigationStack {
                 VStack(alignment: .leading, spacing: 16) {

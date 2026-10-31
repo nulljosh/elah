@@ -1,4 +1,6 @@
 import XCTest
+import SwiftUI
+import ImageIO
 @testable import Bible
 
 final class BibleTests: XCTestCase {
@@ -69,5 +71,17 @@ final class NotesTests: XCTestCase {
         Marks(defaults: d).setNote(r, "   ")
         XCTAssertNil(Marks(defaults: d).note(r))
         XCTAssertEqual(Marks.ref(r.key), r)
+    }
+}
+
+final class VerseCardTests: XCTestCase {
+    @MainActor func testCardRendersSquare() throws {
+        let r = ImageRenderer(content: VerseCard(text: Bible.shared.verses(.home)[44], cite: "1 Samuel 17:45 KJV"))
+        let cg = try XCTUnwrap(r.cgImage)
+        XCTAssertEqual(cg.width, 1080); XCTAssertEqual(cg.height, 1080)
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("verse-card.png")
+        let dest = CGImageDestinationCreateWithURL(url as CFURL, "public.png" as CFString, 1, nil)!
+        CGImageDestinationAddImage(dest, cg, nil); CGImageDestinationFinalize(dest)
+        print("CARD", url.path)
     }
 }

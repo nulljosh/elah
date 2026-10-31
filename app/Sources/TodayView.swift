@@ -5,6 +5,7 @@ struct TodayView: View {
     let read: () -> Void
     @AppStorage("book") private var book = Place.home.book
     @AppStorage("chapter") private var chapter = Place.home.chapter
+    @State private var shareCard: (text: String, cite: String)?
     private let bible = Bible.shared
 
     static let verses = [
@@ -59,7 +60,7 @@ struct TodayView: View {
                                 HStack(spacing: 12) {
                                     Button("Read \(bible.title(r.place))") { book = r.place.book; chapter = r.place.chapter; read() }
                                         .buttonStyle(.borderedProminent).tint(Theme.button)
-                                    ShareLink(item: "\(text)\n\(cite)") { Label("Share", systemImage: "square.and.arrow.up") }
+                                    Button { shareCard = (text, cite) } label: { Label("Share", systemImage: "square.and.arrow.up") }
                                         .buttonStyle(.bordered)
                                 }
                                 .controlSize(.large)
@@ -68,6 +69,9 @@ struct TodayView: View {
                     }
                 }
                 .frame(maxWidth: Theme.measure, alignment: .leading)
+                .sheet(isPresented: Binding(get: { shareCard != nil }, set: { if !$0 { shareCard = nil } })) {
+                    if let c = shareCard { ShareImageSheet(text: c.text, cite: c.cite) }
+                }
                 .padding(.horizontal, Theme.page).padding(.vertical, 24)
                 .frame(maxWidth: .infinity)
             }

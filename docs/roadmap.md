@@ -22,7 +22,7 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 | Parallel versions side by side | yes | no | todo |
 | Verse of the day | yes | yes | done (0.7) |
 | Highlights, bookmarks, notes | yes | yes, on the device | done (0.9) |
-| Share a verse | yes | as text | partial (0.4) |
+| Share a verse | yes | as text or an image card | done (1.1) |
 | Reading plans and streaks | yes | no | todo |
 | Audio Bible | yes | on-device voice | done (0.8) |
 | Cross references and footnotes | yes | inside the frame only | partial |
@@ -46,7 +46,10 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Listen: on-device voice reads the chapter, verse follows | Dwell, YouVersion, ESV | M | done (0.8) |
 | Notes on a verse, all notes in one list | Bible Gateway, ESV, Olive Tree | M | done (0.9) |
 | Saved tab: highlights, bookmarks, notes | YouVersion, ESV | S | done (0.9) |
-| Reading plans with a daily check-off | YouVersion, ESV, Dwell | L | 2.0 |
+| Share a verse as an image card | YouVersion, Bible Gateway | S | done (1.1) |
+| Listening bar: pause, skip a verse, speed | Dwell, Blue Letter Bible, Bible Gateway | S | 1.2 |
+| Search scope (Old or New Testament) and exact phrase in quotes | Blue Letter Bible, Logos | S | 1.3 |
+| Reading plans with a daily check-off | YouVersion, ESV, Dwell, Logos | L | 2.0 |
 | Cross references and Strong's numbers (public domain KJV data) | Olive Tree, Blue Letter Bible, Logos | L | 3.0 |
 | Home Screen widget and Mac desktop widget, verse of the day | YouVersion | M | 4.0 |
 | Apple Watch verse of the day | none | M | 5.0 |
@@ -66,7 +69,10 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.8 listen: the system voice reads the chapter and outlines the verse it is on, keeps playing in the background; Search moved to its own tab (done)
 - 0.9 notes on any verse and a Saved tab with bookmarks, highlights and notes in canon order (done)
 - 1.0 first major, Joshua's call 2026-10-30 (done): every gap row from 0.3 to 0.9 closed, QA'd on iPhone, iPad and Mac in light and dark, 8 tests. Still open from the 1.0 bar: the App Store listing (blocked on the Apple web login) and the opus-ad film
-- 2.0 reading plans
+- 1.1 share a verse as a square image card in the brand blue, from any verse or the verse of the day (done)
+- 1.2 listening bar: pause, previous and next verse, speed
+- 1.3 search scope and exact phrase
+- 2.0 reading plans: start a plan, today's chapters on the Today tab, check them off, progress
 - 3.0 cross references and Strong's
 - 4.0 widgets
 - 5.0 Apple Watch
