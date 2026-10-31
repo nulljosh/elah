@@ -207,5 +207,6 @@ h3 { font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -.02e
 .nav-end .btn { white-space: nowrap; }
 .xref { margin: 0; }
 .xref .word-band { height: clamp(220px, 34vw, 480px); }
+.glyph-band { height: clamp(110px, 16vw, 220px); }
 .xref figcaption { max-width: 560px; margin: var(--sp-4) auto 0; font-size: var(--size-footnote); line-height: 18px; color: var(--sub); }
 .xref figcaption a { color: inherit; }

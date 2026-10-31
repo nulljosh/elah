@@ -3,7 +3,7 @@
 // Every arc joins two chapters that cite each other (OpenBible.info cross-references, CC BY, top 7,000 chapter pairs).
 // Cut like a line engraving: the drawing is kept only on fine horizontal rules, the same engine as the Hermes footer.
 (function () {
-  var band = document.querySelector('.word-band'), canvas = band && band.querySelector('canvas');
+  var band = document.querySelector('.arc-band'), canvas = band && band.querySelector('canvas');
   if (!canvas) return;
   var ctx = canvas.getContext('2d'), data = null, drawnW = 0;
   function layer(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
