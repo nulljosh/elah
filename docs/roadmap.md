@@ -74,7 +74,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 1.3 search scope and exact phrase in quotes; Bible Sans, the app's own font, in the app and on a rebuilt landing (done)
 - 1.4 cross references on any verse (top 8 by votes, OpenBible.info CC BY), animated launch splash; Mac build on the store record (done)
 - 1.5 daily verse notification: a toggle and time on Today, the next 30 verses queued as local notifications (done)
-- 2.0 reading plans: start a plan, today's chapters on the Today tab, check them off, progress
+- 2.0 reading plans (done): four plans (Gospels and Psalms in 30 days, New Testament in 90, the whole Bible in a year), the next day's chapters on Today, check a day off, progress bar. Still owed for the major: a Mobbin pass and the opus-ad film
 - 3.0 Strong's numbers
 - 4.0 widgets
 - 5.0 Apple Watch

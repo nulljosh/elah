@@ -26,6 +26,15 @@ final class BibleTests: XCTestCase {
         XCTAssertEqual(DailyVerse.plan(from: morning, minute: 6 * 60).count, DailyVerse.days - 1, "6:00 has passed, today is skipped")
     }
 
+    func testPlansCoverEveryChapterOnce() {
+        for plan in Plan.all {
+            let days = (0..<plan.days).flatMap { plan.day($0) }
+            XCTAssertEqual(days, plan.chapters(), plan.name)
+            XCTAssertFalse(plan.day(0).isEmpty, plan.name)
+        }
+        XCTAssertEqual(Plan.find("year")?.chapters().count, 1189)
+    }
+
     func testWholeCanon() {
         XCTAssertEqual(bible.books.count, 66)
         XCTAssertEqual(bible.books.reduce(0) { $0 + $1.chapters.count }, 1189)

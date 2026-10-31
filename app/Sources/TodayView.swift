@@ -62,6 +62,9 @@ struct TodayView: View {
                             }
                         }
                     }
+                    card("Reading plan") {
+                        PlanCard { p in book = p.book; chapter = p.chapter; read() }
+                    }
                     card("Daily verse") {
                         Toggle("Send me the verse of the day", isOn: $reminder).tint(Theme.button)
                         if reminder {
