@@ -67,6 +67,7 @@ struct VerseRow: View {
     let cite: String
     @State private var editing = false
     @State private var sharingImage = false
+    @State private var showingRefs = false
     @State private var draft = ""
 
     var body: some View {
@@ -98,11 +99,14 @@ struct VerseRow: View {
             }
             Button(marks.isBookmarked(ref) ? "Remove Bookmark" : "Bookmark") { marks.toggleBookmark(ref) }
             Button(marks.note(ref) == nil ? "Add Note" : "Edit Note") { draft = marks.note(ref) ?? ""; editing = true }
+            Button("Cross References", systemImage: "arrow.triangle.branch") { showingRefs = true }
             Button("Copy") { copy("\(text)\n\(cite)") }
             ShareLink(item: "\(text)\n\(cite)")
             Button("Share as Image", systemImage: "photo") { sharingImage = true }
         }
         .sheet(isPresented: $sharingImage) { ShareImageSheet(text: text, cite: cite) }
+        .sheet(isPresented: $showingRefs) { CrossRefSheet(ref: ref, cite: cite) }
+        .task { if UserDefaults.standard.integer(forKey: "showRefs") == number { showingRefs = true } }
         .sheet(isPresented: $editing) {
             NavigationStack {
                 VStack(alignment: .leading, spacing: 16) {
@@ -128,6 +132,44 @@ struct VerseRow: View {
         UIPasteboard.general.string = s
         #else
         NSPasteboard.general.clearContents(); NSPasteboard.general.setString(s, forType: .string)
+        #endif
+    }
+}
+
+/// Verses that speak to this one. Tap one to read its chapter.
+struct CrossRefSheet: View {
+    let ref: VerseRef
+    let cite: String
+    @AppStorage("book") private var book = Place.home.book
+    @AppStorage("chapter") private var chapter = Place.home.chapter
+    @Environment(\.dismiss) private var dismiss
+    private let bible = Bible.shared
+
+    var body: some View {
+        NavigationStack {
+            List {
+                let refs = bible.crossRefs(ref)
+                if refs.isEmpty { Text("No cross references for this verse.").foregroundStyle(.secondary) }
+                ForEach(refs, id: \.key) { r in
+                    Button { book = r.place.book; chapter = r.place.chapter; dismiss() } label: {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("\(bible.title(r.place)):\(r.verse)").font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
+                            Text(bible.verses(r.place)[r.verse - 1]).foregroundStyle(.primary).lineLimit(3)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .buttonStyle(.plain)
+                }
+                Text("Cross references from OpenBible.info, CC BY.").font(.caption).foregroundStyle(.secondary).listRowBackground(Color.clear)
+            }
+            .navigationTitle(cite.replacingOccurrences(of: " KJV", with: ""))
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }
+        #if os(macOS)
+        .frame(minWidth: 460, minHeight: 480)
         #endif
     }
 }

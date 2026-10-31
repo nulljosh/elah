@@ -80,6 +80,14 @@ final class Bible {
         return hits
     }
 
+    /// Cross references from OpenBible.info (CC BY), top 8 per verse by votes. Loaded on first use.
+    private lazy var xrefs: [String: [String]] = Bundle.main.url(forResource: "xrefs", withExtension: "json")
+        .flatMap { try? Data(contentsOf: $0) }.flatMap { try? JSONDecoder().decode([String: [String]].self, from: $0) } ?? [:]
+
+    func crossRefs(_ r: VerseRef) -> [VerseRef] {
+        (xrefs[r.key] ?? []).compactMap(Marks.ref).filter { verses($0.place).indices.contains($0.verse - 1) }
+    }
+
     /// BibleGateway page for a chapter, used for the NIV, which is licensed and not bundled.
     func gatewayURL(_ p: Place, _ v: Version) -> URL {
         var c = URLComponents(string: "https://www.biblegateway.com/passage/")!

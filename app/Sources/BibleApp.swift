@@ -34,6 +34,42 @@ struct RootView: View {
         .environmentObject(marks)
         .font(Theme.sans(17))
         .tint(Theme.accent)
+        .overlay { if splashing { Splash { splashing = false } } }
+    }
+    @State private var splashing = true
+}
+
+/// The book draws itself, fills, then opens out of the way. About a second, once per launch.
+struct Splash: View {
+    let done: () -> Void
+    @State private var drawn: CGFloat = 0
+    @State private var filled = false
+    @State private var leaving = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            Rectangle().fill(.background).ignoresSafeArea()
+            ZStack {
+                BookMark().trim(from: 0, to: drawn).stroke(Theme.accent, style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                BookMark().fill(Theme.accent).opacity(filled ? 1 : 0)
+            }
+            .frame(width: 96, height: 96)
+            .scaleEffect(leaving ? 1.6 : 1)
+        }
+        .opacity(leaving ? 0 : 1)
+        .accessibilityHidden(true)
+        .task {
+            if reduceMotion { filled = true; drawn = 1; try? await Task.sleep(for: .milliseconds(300)) } else {
+                withAnimation(.easeInOut(duration: 0.55)) { drawn = 1 }
+                try? await Task.sleep(for: .milliseconds(450))
+                withAnimation(.easeIn(duration: 0.25)) { filled = true }
+                try? await Task.sleep(for: .milliseconds(300))
+            }
+            withAnimation(.easeIn(duration: 0.3)) { leaving = true }
+            try? await Task.sleep(for: .milliseconds(300))
+            done()
+        }
     }
 }
 

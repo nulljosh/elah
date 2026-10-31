@@ -11,6 +11,12 @@ final class BibleTests: XCTestCase {
         XCTAssertTrue(bible.verses(.home)[48].contains("smote the Philistine in his forehead"))
     }
 
+    func testCrossRefs() {
+        let refs = bible.crossRefs(VerseRef(place: Place(book: 0, chapter: 1), verse: 1))
+        XCTAssertEqual(refs.first, VerseRef(place: Place(book: 42, chapter: 1), verse: 1), "Genesis 1:1 leads to John 1:1")
+        XCTAssertLessThanOrEqual(refs.count, 8)
+    }
+
     func testWholeCanon() {
         XCTAssertEqual(bible.books.count, 66)
         XCTAssertEqual(bible.books.reduce(0) { $0 + $1.chapters.count }, 1189)
