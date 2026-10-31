@@ -12,6 +12,6 @@ The deployed version and the tip of `main`. Nothing else.
 
 ## What keeps you safe
 
-Bible keeps no account, no cookie and no analytics. The page is static. It stores nothing and runs no server code of its own.
+Elah keeps no account, no cookie and no analytics. The page is static. It stores nothing and runs no server code of its own.
 
 The passage you type goes to BibleGateway inside a frame, the same as opening their site. The frame address is built with `encodeURIComponent`, so a passage cannot change the host or add parameters. Nothing from the frame is read back, and the page loads scripts from its own address only.

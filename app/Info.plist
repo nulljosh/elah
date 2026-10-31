@@ -22,10 +22,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>BibleSans-Regular.ttf</string>
-		<string>BibleSans-Medium.ttf</string>
-		<string>BibleSans-Semibold.ttf</string>
-		<string>BibleSans-Bold.ttf</string>
+		<string>ElahSans-Regular.ttf</string>
+		<string>ElahSans-Medium.ttf</string>
+		<string>ElahSans-Semibold.ttf</string>
+		<string>ElahSans-Bold.ttf</string>
 	</array>
 </dict>
 </plist>

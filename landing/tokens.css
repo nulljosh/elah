@@ -1,9 +1,9 @@
-/* Bible design tokens. One source for the landing and the docs; app/Sources/Theme.swift mirrors these.
-   Shared system: 8 point grid, one radius set, 48 point capsule controls. The accent is the only colour Bible owns. */
-@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Elah design tokens. One source for the landing and the docs; app/Sources/Theme.swift mirrors these.
+   Shared system: 8 point grid, one radius set, 48 point capsule controls. The accent is the only colour Elah owns. */
+@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
   /* colour */
@@ -25,8 +25,8 @@
   --text2: #6b655c;
   --sub: #6b655c;
 
-  /* type: Bible Sans (Inter, OFL, quotes drawn as smooth stones), system font while it loads */
-  --font: "Bible Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* type: Elah Sans (Inter, OFL, quotes drawn as smooth stones), system font while it loads */
+  --font: "Elah Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --display: var(--font);
   --serif: ui-serif, "New York", Georgia, serif;   /* the verses themselves */
   --size-display: 64px;       /* hero: 64 line */

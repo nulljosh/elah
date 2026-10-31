@@ -1,8 +1,8 @@
-<img src="icon.svg" width="80" height="80" alt="Bible icon">
+<img src="icon.svg" width="80" height="80" alt="Elah icon">
 
 ![version](https://img.shields.io/badge/version-1.3.0-1745a8) ![license](https://img.shields.io/badge/license-MIT-1745a8)
 
-Read the Bible in the NIV or the King James. It opens on David and Goliath.
+Read the King James Bible on your iPhone, iPad and Mac. It opens on David and Goliath, in the valley of Elah.
 
 No account, no ads, no tracking. One page, a search box and a version picker. Type any passage, pick NIV or KJV, and the text comes from BibleGateway. One button takes you back to 1 Samuel 17.
 
@@ -11,7 +11,7 @@ No account, no ads, no tracking. One page, a search box and a version picker. Ty
 <img src="docs/screenshots/dark.png" width="360" alt="1 Samuel 17 in the NIV, dark">
 </p>
 
-Live at [bible.jaybulb.com](https://bible.jaybulb.com).
+Live at [elah.jaybulb.com](https://elah.jaybulb.com).
 
 ## Features
 

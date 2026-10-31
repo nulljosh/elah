@@ -1,4 +1,4 @@
-# Bible roadmap
+# Elah roadmap
 
 Goal: a Bible reader that matches the YouVersion Bible app for everyday reading, with its own brand and code. It opens on David and Goliath, 1 Samuel 17, in the NIV, and reads the NIV and the King James. The native app reads the KJV from text bundled in the app and opens the NIV on BibleGateway, since Biblica licenses the NIV.
 

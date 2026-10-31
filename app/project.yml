@@ -22,7 +22,7 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.nulljosh.bible
       ASSETCATALOG_COMPILER_APPICON_NAME: Bible
       GENERATE_INFOPLIST_FILE: YES
-      INFOPLIST_KEY_CFBundleDisplayName: Bible
+      INFOPLIST_KEY_CFBundleDisplayName: Elah
       INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
       INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
       INFOPLIST_KEY_UILaunchScreen_Generation: YES
@@ -39,8 +39,8 @@ targets:
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
-        # Bible Sans ships in the bundle root; iOS lists each file, the Mac loads the folder.
-        UIAppFonts: [BibleSans-Regular.ttf, BibleSans-Medium.ttf, BibleSans-Semibold.ttf, BibleSans-Bold.ttf]
+        # Elah Sans ships in the bundle root; iOS lists each file, the Mac loads the folder.
+        UIAppFonts: [ElahSans-Regular.ttf, ElahSans-Medium.ttf, ElahSans-Semibold.ttf, ElahSans-Bold.ttf]
         ATSApplicationFontsPath: "."
   BibleTests:
     type: bundle.unit-test

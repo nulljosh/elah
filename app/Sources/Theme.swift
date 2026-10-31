@@ -8,9 +8,9 @@ enum Theme {
     static let surface = Color(light: 0xf1ede6, dark: 0x211f1c)
     static let secondary = Color(light: 0x6b655c, dark: 0x9a948a)
     static let control: CGFloat = 48
-    /// Bible Sans (Inter, OFL, quotes drawn as smooth stones), scaling with Dynamic Type.
+    /// Elah Sans (Inter, OFL, quotes drawn as smooth stones), scaling with Dynamic Type.
     static func sans(_ size: CGFloat, _ weight: Font.Weight = .regular, relativeTo style: Font.TextStyle = .body) -> Font {
-        .custom("Bible Sans", size: size, relativeTo: style).weight(weight)
+        .custom("Elah Sans", size: size, relativeTo: style).weight(weight)
     }
     static let page: CGFloat = 20
     static let measure: CGFloat = 680

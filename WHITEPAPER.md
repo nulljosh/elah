@@ -1,8 +1,8 @@
-# Bible Technical Whitepaper
+# Elah Technical Whitepaper
 
 **v0.2.0** | October 2026
 
-Bible is a one-page reader that opens on David and Goliath, 1 Samuel 17 in the NIV, and reads any passage in the NIV or the King James. It stores nothing, asks for no account and runs no server of its own. The text, the verse parsing and the licence for the NIV all come from BibleGateway, which the page shows in a frame.
+Elah (first called Bible) is a reader that opens on David and Goliath, 1 Samuel 17 in the NIV, and reads any passage in the NIV or the King James. It stores nothing, asks for no account and runs no server of its own. The text, the verse parsing and the licence for the NIV all come from BibleGateway, which the page shows in a frame.
 
 ## The core idea: a passage is a URL
 

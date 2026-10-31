@@ -2,7 +2,7 @@ name = "bible"
 compatibility_date = "2025-07-01"
 
 workers_dev = false
-routes = [{ pattern = "bible.jaybulb.com", custom_domain = true }]
+routes = [{ pattern = "elah.jaybulb.com", custom_domain = true }, { pattern = "bible.jaybulb.com", custom_domain = true }]
 
 [assets]
 directory = "landing"

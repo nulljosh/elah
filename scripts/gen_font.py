@@ -1,12 +1,12 @@
-"""Bible Sans: Inter (Rasmus Andersson, SIL Open Font License 1.1, no reserved name), renamed, with its curly
+"""Elah Sans: Inter (Rasmus Andersson, SIL Open Font License 1.1, no reserved name), renamed, with its curly
 quote marks redrawn as smooth stones from the brook, the five David picked up before he met Goliath.
 Inter is drawn in the spirit of San Francisco and Helvetica: open shapes, even proportional spacing, built for screens.
 
 Same method as Hermes Sans, coda's Quip Sans and turing's Samantha Sans: pinned release, renamed, OFL shipped beside the fonts,
 original copyright kept in the name table, fixed timestamps so every build is the same bytes.
 
-    python3 scripts/gen_font.py            # writes fonts/BibleSans-{Regular,Medium,Semibold,Bold}.{ttf,woff2} + OFL.txt
-    python3 scripts/gen_font.py --check    # named Bible Sans, OFL present, original copyright kept
+    python3 scripts/gen_font.py            # writes fonts/ElahSans-{Regular,Medium,Semibold,Bold}.{ttf,woff2} + OFL.txt
+    python3 scripts/gen_font.py --check    # named Elah Sans, OFL present, original copyright kept
 Needs fonttools and brotli (uv run --with fonttools --with brotli).
 """
 import io
@@ -69,16 +69,16 @@ def redraw_quotes(font):
 
 
 def rename(font, style):
-    """Give the outlines the Bible Sans name; copyright (0) and license (13, 14) stay as the authors wrote them."""
-    names = {1: "Bible Sans", 2: style, 3: f"BibleSans-{style}", 4: f"Bible Sans {style}", 5: "Version 1.000",
-             6: f"BibleSans-{style}", 16: "Bible Sans", 17: style}
+    """Give the outlines the Elah Sans name; copyright (0) and license (13, 14) stay as the authors wrote them."""
+    names = {1: "Elah Sans", 2: style, 3: f"ElahSans-{style}", 4: f"Elah Sans {style}", 5: "Version 1.000",
+             6: f"ElahSans-{style}", 16: "Elah Sans", 17: style}
     table = font["name"]
     table.names = [n for n in table.names if n.nameID in (0, 13, 14)]
     for nid, text in names.items():
         table.setName(text, nid, 3, 1, 0x409)
         table.setName(text, nid, 1, 0, 0)
     font["head"].created = font["head"].modified = 3_700_000_000
-    font["OS/2"].achVendID = "BBLE"
+    font["OS/2"].achVendID = "ELAH"
 
 
 def check():
@@ -86,16 +86,16 @@ def check():
     assert os.path.exists(os.path.join(OUT, "OFL.txt")), "the OFL must ship with the fonts"
     for style in WEIGHTS:
         for ext in ("ttf", "woff2"):
-            f = TTFont(os.path.join(OUT, f"BibleSans-{style}.{ext}"))
-            assert f["name"].getDebugName(1) == "Bible Sans", "family name"
-            assert f["name"].getDebugName(6) == f"BibleSans-{style}", "postscript name"
+            f = TTFont(os.path.join(OUT, f"ElahSans-{style}.{ext}"))
+            assert f["name"].getDebugName(1) == "Elah Sans", "family name"
+            assert f["name"].getDebugName(6) == f"ElahSans-{style}", "postscript name"
             assert f["name"].getDebugName(0), "the original copyright must stay in the name table"
             cmap, hmtx, glyf = f.getBestCmap(), f["hmtx"], f["glyf"]
             for cp, n in ((0x2019, 1), (0x201D, 2), (0x2018, 1), (0x201C, 2)):
                 g = glyf[cmap[cp]]
                 assert g.numberOfContours == n, f"U+{cp:04X} is not the stone"
                 assert 0 <= g.xMin and g.xMax <= hmtx[cmap[cp]][0], f"U+{cp:04X} spills out of its advance"
-    print(f"font ok: Bible Sans (Inter, OFL), {len(WEIGHTS)} weights, quotes are stones")
+    print(f"font ok: Elah Sans (Inter, OFL), {len(WEIGHTS)} weights, quotes are stones")
 
 
 def main():
@@ -110,8 +110,8 @@ def main():
         rename(font, style)
         for ext, flavor in (("ttf", None), ("woff2", "woff2")):
             font.flavor = flavor
-            font.save(os.path.join(OUT, f"BibleSans-{style}.{ext}"), reorderTables=False)
-        print(f"BibleSans-{style}: Inter {weight}")
+            font.save(os.path.join(OUT, f"ElahSans-{style}.{ext}"), reorderTables=False)
+        print(f"ElahSans-{style}: Inter {weight}")
 
 
 if __name__ == "__main__":
