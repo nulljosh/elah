@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Greeting, where you left off, and one verse a day. The verse is the same for everyone on a given day.
+/// Where you left off, and one verse a day. The verse is the same for everyone on a given day.
 struct TodayView: View {
     let read: () -> Void
     @AppStorage("book") private var book = Place.home.book
@@ -25,19 +25,11 @@ struct TodayView: View {
         verses[(Calendar.current.ordinality(of: .day, in: .era, for: date) ?? 0) % verses.count]
     }
 
-    private var greeting: String {
-        switch Calendar.current.component(.hour, from: .now) {
-        case 5..<12: "Good morning"
-        case 12..<17: "Good afternoon"
-        default: "Good evening"
-        }
-    }
-
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text(greeting).font(Theme.sans(34, .bold, relativeTo: .largeTitle))
+                    Text("Today").font(Theme.sans(34, .bold, relativeTo: .largeTitle))
                     card("Continue reading") {
                         Button { read() } label: {
                             HStack {
