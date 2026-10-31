@@ -46,6 +46,25 @@ final class Bible {
         return p.book > 0 ? Place(book: p.book - 1, chapter: books[p.book - 1].chapters.count) : nil
     }
 
+    /// Every verse containing all the words of the query, case and accent blind, in canon order.
+    func search(_ query: String, limit: Int = 500) -> [(ref: VerseRef, text: String)] {
+        let words = query.lowercased().split(separator: " ").map(String.init).filter { !$0.isEmpty }
+        guard !words.isEmpty else { return [] }
+        var hits: [(VerseRef, String)] = []
+        for (b, book) in books.enumerated() {
+            for (c, chapter) in book.chapters.enumerated() {
+                for (v, text) in chapter.enumerated() {
+                    let t = text.lowercased()
+                    if words.allSatisfy(t.contains) {
+                        hits.append((VerseRef(place: Place(book: b, chapter: c + 1), verse: v + 1), text))
+                        if hits.count == limit { return hits }
+                    }
+                }
+            }
+        }
+        return hits
+    }
+
     /// BibleGateway page for a chapter, used for the NIV, which is licensed and not bundled.
     func gatewayURL(_ p: Place, _ v: Version) -> URL {
         var c = URLComponents(string: "https://www.biblegateway.com/passage/")!

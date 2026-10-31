@@ -41,3 +41,12 @@ final class MarksTests: XCTestCase {
         XCTAssertFalse(Marks(defaults: d).isBookmarked(r))
     }
 }
+
+final class SearchTests: XCTestCase {
+    func testFindsGoliathsForehead() {
+        let hits = Bible.shared.search("stone forehead")
+        XCTAssertTrue(hits.contains { $0.ref == VerseRef(place: .home, verse: 49) })
+        XCTAssertTrue(Bible.shared.search("   ").isEmpty)
+        XCTAssertEqual(Bible.shared.search("the", limit: 10).count, 10)
+    }
+}

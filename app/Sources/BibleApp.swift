@@ -21,6 +21,7 @@ struct ReaderView: View {
     @Environment(\.openURL) private var openURL
     @State private var picking = false
     @State private var reading = false
+    @State private var searching = false
     @AppStorage("serif") private var serif = false
     @AppStorage("spacing") private var spacing = 0.35
     @StateObject private var marks = Marks()
@@ -37,8 +38,10 @@ struct ReaderView: View {
             .sheet(isPresented: $showNIV) { SafariView(url: bible.gatewayURL(place, .niv)).ignoresSafeArea() }
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
+            .sheet(isPresented: $searching) { SearchView { go($0) } }
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
-            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
+            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true }
+                if UserDefaults.standard.bool(forKey: "showSearch") { try? await Task.sleep(for: .seconds(1)); searching = true } }
         }
         .tint(Theme.accent)
     }
@@ -88,6 +91,7 @@ struct ReaderView: View {
                 Button("King James Version", systemImage: "checkmark") {}
                 Button("New International Version (BibleGateway)") { openNIV() }
             } label: { Text("KJV").font(.subheadline.weight(.semibold)) }
+            Button { searching = true } label: { Label("Search", systemImage: "magnifyingglass") }
             Button { reading = true } label: { Label("Reading Settings", systemImage: "textformat.size") }
                 .popover(isPresented: $reading) { ReadingSettings().presentationCompactAdaptation(.sheet).presentationDetents([.height(340)]) }
         }
