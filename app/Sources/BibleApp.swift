@@ -62,7 +62,8 @@ struct ReaderView: View {
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
-            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
+            .task { if UserDefaults.standard.bool(forKey: "showPlayer") { speaker.preview(bible.verses(place), at: 12) }
+                if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
         }
         .tint(Theme.accent)
     }
@@ -87,7 +88,42 @@ struct ReaderView: View {
             .frame(maxWidth: .infinity)
         }
         .id(place)
+        .safeAreaInset(edge: .bottom) { if speaker.active { listenBar } }
     }
+
+    private var listenBar: some View {
+        HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Listening").font(.caption).foregroundStyle(Theme.secondary)
+                Text("\(bible.title(place)):\(speaker.verse ?? 1)").font(.subheadline.weight(.semibold)).monospacedDigit()
+                    .lineLimit(1).minimumScaleFactor(0.7)
+            }
+            Spacer()
+            Group {
+                Button { speaker.skip(-1) } label: { Image(systemName: "backward.fill") }.accessibilityLabel("Previous verse")
+                Button { speaker.toggle(bible.verses(place)) } label: { Image(systemName: speaker.playing ? "pause.fill" : "play.fill") }
+                    .accessibilityLabel(speaker.playing ? "Pause" : "Play")
+                Button { speaker.skip(1) } label: { Image(systemName: "forward.fill") }.accessibilityLabel("Next verse")
+                Menu {
+                    ForEach([0.75, 1.0, 1.25, 1.5], id: \.self) { r in
+                        Button { speaker.setRate(r) } label: { if speaker.rate == r { Label(rateLabel(r), systemImage: "checkmark") } else { Text(rateLabel(r)) } }
+                    }
+                } label: { Text(rateLabel(speaker.rate)).font(.subheadline.weight(.semibold)).monospacedDigit() }
+                    .accessibilityLabel("Speed \(rateLabel(speaker.rate))")
+                Button { speaker.stop() } label: { Image(systemName: "xmark") }.accessibilityLabel("Stop listening")
+            }
+            .frame(width: 40, height: 44)
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .foregroundStyle(Theme.accent)
+        }
+        .padding(.leading, 16).padding(.trailing, 4).padding(.vertical, 6)
+        .background(.regularMaterial, in: Capsule())
+        .padding(.horizontal, 12).padding(.bottom, 8)
+        .frame(maxWidth: Theme.measure)
+    }
+
+    private func rateLabel(_ r: Double) -> String { r == 1 ? "1x" : String(format: "%gx", r) }
 
     private func chapterButton(_ icon: String, _ title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) { Label(title, systemImage: icon).frame(height: Theme.control).padding(.horizontal, 16) }
