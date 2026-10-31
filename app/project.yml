@@ -7,8 +7,8 @@ options:
     macOS: "14.0"
 settings:
   # One version for iPhone, iPad and Mac. Bump both every release.
-  MARKETING_VERSION: "1.2.0"
-  CURRENT_PROJECT_VERSION: 202610310140
+  MARKETING_VERSION: "1.3.0"
+  CURRENT_PROJECT_VERSION: 202610310200
   SWIFT_VERSION: "5.9"
 targets:
   Bible:
@@ -34,6 +34,14 @@ targets:
       CODE_SIGN_STYLE: Automatic
       ENABLE_APP_SANDBOX: YES
       ENABLE_OUTGOING_NETWORK_CONNECTIONS: YES
+    info:
+      path: Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Bible Sans ships in the bundle root; iOS lists each file, the Mac loads the folder.
+        UIAppFonts: [BibleSans-Regular.ttf, BibleSans-Medium.ttf, BibleSans-Semibold.ttf, BibleSans-Bold.ttf]
+        ATSApplicationFontsPath: "."
   BibleTests:
     type: bundle.unit-test
     supportedDestinations: [iOS, macOS]

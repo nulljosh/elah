@@ -85,3 +85,15 @@ final class VerseCardTests: XCTestCase {
         print("CARD", url.path)
     }
 }
+
+final class ScopeTests: XCTestCase {
+    func testScopeAndPhrase() {
+        let b = Bible.shared
+        XCTAssertTrue(b.search("Goliath", scope: .new).isEmpty)
+        XCTAssertFalse(b.search("Goliath", scope: .old).isEmpty)
+        let phrase = b.search("\u{201C}five smooth stones\u{201D}")
+        XCTAssertEqual(phrase.count, 1)
+        XCTAssertEqual(phrase.first?.ref, VerseRef(place: .home, verse: 40))
+        XCTAssertGreaterThan(b.search("smooth stones").count, b.search("\"five smooth stones\"").count - 1)
+    }
+}

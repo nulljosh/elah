@@ -56,12 +56,17 @@ final class Bible {
         return verses(p).indices.contains(v - 1) ? VerseRef(place: p, verse: v) : nil
     }
 
-    /// Every verse containing all the words of the query, case and accent blind, in canon order.
-    func search(_ query: String, limit: Int = 500) -> [(ref: VerseRef, text: String)] {
-        let words = query.lowercased().split(separator: " ").map(String.init).filter { !$0.isEmpty }
+    enum Scope: String, CaseIterable { case all = "All", old = "Old Testament", new = "New Testament" }
+
+    /// Every verse containing all the words of the query, in canon order. A query in double quotes matches as one phrase.
+    func search(_ query: String, scope: Scope = .all, limit: Int = 500) -> [(ref: VerseRef, text: String)] {
+        let q = query.lowercased().trimmingCharacters(in: .whitespaces)
+        let quoted = q.count > 2 && (q.hasPrefix("\"") || q.hasPrefix("\u{201C}")) && (q.hasSuffix("\"") || q.hasSuffix("\u{201D}"))
+        let words = quoted ? [String(q.dropFirst().dropLast())] : q.split(separator: " ").map(String.init).filter { !$0.isEmpty }
         guard !words.isEmpty else { return [] }
+        let range = scope == .old ? 0..<39 : scope == .new ? 39..<books.count : 0..<books.count
         var hits: [(VerseRef, String)] = []
-        for (b, book) in books.enumerated() {
+        for (b, book) in books.enumerated() where range.contains(b) {
             for (c, chapter) in book.chapters.enumerated() {
                 for (v, text) in chapter.enumerated() {
                     let t = text.lowercased()

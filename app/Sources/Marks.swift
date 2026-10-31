@@ -73,7 +73,7 @@ struct VerseRow: View {
         let mark = marks.highlight(ref)
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             (Text("\(number) ").font(.system(size: size * 0.6, weight: .semibold)).foregroundColor(Theme.secondary)
-             + Text(text).font(.system(size: size, design: serif ? .serif : .default)))
+             + Text(text).font(serif ? .system(size: size, design: .serif) : Theme.sans(size)))
                 .lineSpacing(size * spacing)
             if marks.note(ref) != nil {
                 Image(systemName: "note.text").font(.caption).foregroundStyle(Theme.accent).padding(.leading, 6)

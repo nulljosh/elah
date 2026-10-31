@@ -7,6 +7,7 @@ struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var query = UserDefaults.standard.string(forKey: "searchQuery") ?? ""
     @State private var hits: [(ref: VerseRef, text: String)] = []
+    @AppStorage("searchScope") private var scope = Bible.Scope.all
     private let bible = Bible.shared
 
     private var groups: [(book: Int, hits: [(ref: VerseRef, text: String)])] {
@@ -16,10 +17,15 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             List {
+                Picker("Scope", selection: $scope) { ForEach(Bible.Scope.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
+                    .pickerStyle(.segmented).listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                if query.isEmpty {
+                    Text("Put words in quotes to find an exact phrase, like \u{201C}smooth stones\u{201D}.").font(.callout).foregroundStyle(.secondary).listRowBackground(Color.clear)
+                }
                 if !query.isEmpty && hits.isEmpty {
                     Text("No verses with \u{201C}\(query)\u{201D}").foregroundStyle(.secondary)
                 } else if !hits.isEmpty {
-                    Text(hits.count == 500 ? "First 500 verses" : "\(hits.count) verses").font(.footnote).foregroundStyle(.secondary)
+                    Text(hits.count == 500 ? "First 500 verses" : hits.count == 1 ? "1 verse" : "\(hits.count) verses").font(.footnote).foregroundStyle(.secondary)
                 }
                 ForEach(groups, id: \.book) { g in
                     Section(bible.books[g.book].name) {
@@ -41,10 +47,10 @@ struct SearchView: View {
             #else
             .searchable(text: $query, prompt: "Words in any verse")
             #endif
-            .task(id: query) {
+            .task(id: "\(query)|\(scope.rawValue)") {
                 try? await Task.sleep(for: .milliseconds(200))
-                let q = query
-                hits = await Task.detached { Bible.shared.search(q) }.value
+                let q = query, sc = scope
+                hits = await Task.detached { Bible.shared.search(q, scope: sc) }.value
             }
             .frame(maxWidth: 760)
             .frame(maxWidth: .infinity)

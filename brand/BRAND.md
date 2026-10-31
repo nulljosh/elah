@@ -28,7 +28,10 @@ Warm paper in light, warm graphite in dark, the same neutrals as Hermes. One acc
 The accent is a deep royal blue. It is for the Go button, focus rings and the icon, nowhere else. Never brown, beige, purple or teal.
 
 ## Type
-The system font: `-apple-system, BlinkMacSystemFont, "SF Pro Text", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif`. Scale: title 22/28 bold, body 17/24, footnote 13/18. The verses themselves are set by BibleGateway inside the frame.
+Bible Sans, the house face for this app: Inter under the SIL Open Font License, proportionally spaced in the spirit of San Francisco and Helvetica, renamed and pinned by `scripts/gen_font.py`, with the curly quotes and apostrophe redrawn as the smooth stones David took from the brook. Four weights, 400 to 700, in `fonts/`, shipped in the app bundle and on the landing. The fallback is the system stack. Verses can switch to the system serif in Reading settings. Scale: display 64/64 bold, title 34/40 bold, headline 20/28 semibold, body 17/24, footnote 13/16.
+
+## Art
+Gustave Doré's Bible engravings (1866, public domain), dithered to halftone dot masks in `landing/art/` and tinted with the band colour. The footer is the Bible's cross-references drawn as arcs (OpenBible.info, CC BY), after Chris Harrison and Christoph Römhild, cut into fine rules like the Hermes footer.
 
 ## Space and shape
 - Space on the 8 point grid: 4, 8, 12, 16, 24, 32, 48. Side margin 20. Reading column 680.
@@ -36,4 +39,4 @@ The system font: `-apple-system, BlinkMacSystemFont, "SF Pro Text", Lato, "Helve
 - Controls are 48 points tall capsules, one height in a row. Focus is a 4 point ring at 30 percent accent.
 - Motion is 0.2 s ease and honours reduced motion.
 
-`tokens.css` is the single source for the landing. `deploy.sh` copies it into `landing/` so the page and the kit never drift.
+`tokens.css` is the single source for the landing; `app/Sources/Theme.swift` mirrors it. `deploy.sh` copies it and the fonts into `landing/` so the page and the kit never drift.

@@ -32,6 +32,7 @@ struct RootView: View {
                 .tabItem { Label("Saved", systemImage: "bookmark") }.tag("saved")
         }
         .environmentObject(marks)
+        .font(Theme.sans(17))
         .tint(Theme.accent)
     }
 }
@@ -71,7 +72,7 @@ struct ReaderView: View {
     private var kjv: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
-                Text(bible.title(place)).font(.system(.largeTitle, design: serif ? .serif : .default).bold()).padding(.bottom, 8)
+                Text(bible.title(place)).font(serif ? .system(.largeTitle, design: .serif).bold() : Theme.sans(34, .bold, relativeTo: .largeTitle)).padding(.bottom, 8)
                 ForEach(Array(bible.verses(place).enumerated()), id: \.offset) { i, v in
                     let ref = VerseRef(place: place, verse: i + 1)
                     VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, speaking: speaker.verse == i + 1, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")

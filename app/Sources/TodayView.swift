@@ -37,7 +37,7 @@ struct TodayView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text(greeting).font(.largeTitle.bold())
+                    Text(greeting).font(Theme.sans(34, .bold, relativeTo: .largeTitle))
                     card("Continue reading") {
                         Button { read() } label: {
                             HStack {

@@ -48,7 +48,7 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Saved tab: highlights, bookmarks, notes | YouVersion, ESV | S | done (0.9) |
 | Share a verse as an image card | YouVersion, Bible Gateway | S | done (1.1) |
 | Listening bar: pause, skip a verse, speed | Dwell, Blue Letter Bible, Bible Gateway | S | done (1.2) |
-| Search scope (Old or New Testament) and exact phrase in quotes | Blue Letter Bible, Logos | S | 1.3 |
+| Search scope (Old or New Testament) and exact phrase in quotes | Blue Letter Bible, Logos | S | done (1.3) |
 | Reading plans with a daily check-off | YouVersion, ESV, Dwell, Logos | L | 2.0 |
 | Cross references and Strong's numbers (public domain KJV data) | Olive Tree, Blue Letter Bible, Logos | L | 3.0 |
 | Home Screen widget and Mac desktop widget, verse of the day | YouVersion | M | 4.0 |
@@ -71,7 +71,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 1.0 first major, Joshua's call 2026-10-30 (done): every gap row from 0.3 to 0.9 closed, QA'd on iPhone, iPad and Mac in light and dark, 8 tests. Still open from the 1.0 bar: the App Store listing (blocked on the Apple web login) and the opus-ad film
 - 1.1 share a verse as a square image card in the brand blue, from any verse or the verse of the day (done)
 - 1.2 listening bar above the tabs: pause, previous and next verse, four speeds, stop (done)
-- 1.3 search scope and exact phrase
+- 1.3 search scope and exact phrase in quotes; Bible Sans, the app's own font, in the app and on a rebuilt landing (done)
 - 2.0 reading plans: start a plan, today's chapters on the Today tab, check them off, progress
 - 3.0 cross references and Strong's
 - 4.0 widgets
