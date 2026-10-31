@@ -45,6 +45,7 @@ struct VerseRow: View {
     let size: Double
     var serif = false
     var spacing = 0.35
+    var speaking = false
     @ObservedObject var marks: Marks
     let ref: VerseRef
     let cite: String
@@ -62,6 +63,8 @@ struct VerseRow: View {
         }
         .padding(.horizontal, 4).padding(.vertical, 2)
         .background(mark.map { Marks.colors[$0].color.opacity(0.35) } ?? .clear, in: RoundedRectangle(cornerRadius: 6))
+        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.accent, lineWidth: speaking ? 2 : 0))
+        .animation(.easeInOut(duration: 0.2), value: speaking)
         .contentShape(Rectangle())
         .contextMenu {
             Menu("Highlight") {

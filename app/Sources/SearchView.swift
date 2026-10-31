@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Search every KJV verse on the device. Results group by book; tap one to open its chapter.
 struct SearchView: View {
+    var inTab = false
     let open: (Place) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var query = UserDefaults.standard.string(forKey: "searchQuery") ?? ""
@@ -35,14 +36,18 @@ struct SearchView: View {
                     }
                 }
             }
+            #if os(iOS)
+            .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Words in any verse")
+            #else
             .searchable(text: $query, prompt: "Words in any verse")
+            #endif
             .task(id: query) {
                 try? await Task.sleep(for: .milliseconds(200))
                 let q = query
                 hits = await Task.detached { Bible.shared.search(q) }.value
             }
             .navigationTitle("Search")
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } } }
+            .toolbar { if !inTab { ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } } } }
         }
         #if os(macOS)
         .frame(minWidth: 460, minHeight: 560)

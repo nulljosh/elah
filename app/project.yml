@@ -7,8 +7,8 @@ options:
     macOS: "14.0"
 settings:
   # One version for iPhone, iPad and Mac. Bump both every release.
-  MARKETING_VERSION: "0.7.0"
-  CURRENT_PROJECT_VERSION: 202610302340
+  MARKETING_VERSION: "0.8.0"
+  CURRENT_PROJECT_VERSION: 202610310000
   SWIFT_VERSION: "5.9"
 targets:
   Bible:
@@ -28,6 +28,7 @@ targets:
       INFOPLIST_KEY_UILaunchScreen_Generation: YES
       INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
       INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+      INFOPLIST_KEY_UIBackgroundModes: audio
       INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.books
       DEVELOPMENT_TEAM: QMM486NPYC
       CODE_SIGN_STYLE: Automatic

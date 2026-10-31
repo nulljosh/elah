@@ -24,7 +24,7 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 | Highlights, bookmarks, notes | yes | highlights and bookmarks | partial (0.4) |
 | Share a verse | yes | as text | partial (0.4) |
 | Reading plans and streaks | yes | no | todo |
-| Audio Bible | yes | no | todo |
+| Audio Bible | yes | on-device voice | done (0.8) |
 | Cross references and footnotes | yes | inside the frame only | partial |
 | Offline reading | yes | KJV offline | done (0.3) |
 | Account and sync | yes | no | skip until highlights exist, then jaybulb-api |
@@ -43,7 +43,7 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Reading settings sheet: size, serif or sans, line spacing | YouVersion, Dwell, Bible Gateway | S | done (0.5) |
 | Search every verse, results grouped by book | Olive Tree, Logos | M | done (0.6) |
 | Today screen: continue reading, verse of the day | Bible Gateway, YouVersion | M | done (0.7) |
-| Listen: on-device voice reads the chapter, verse follows | Dwell, YouVersion, ESV | M | 0.8 |
+| Listen: on-device voice reads the chapter, verse follows | Dwell, YouVersion, ESV | M | done (0.8) |
 | Notes on a verse, all notes in one list | Bible Gateway, ESV, Olive Tree | M | 0.9 |
 | Saved tab: highlights, bookmarks, notes | YouVersion, ESV | S | 0.9 |
 | Reading plans with a daily check-off | YouVersion, ESV, Dwell | L | 2.0 |
@@ -63,7 +63,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.5 reading settings: text size slider, sans or serif, three line spacings (done)
 - 0.6 search: every KJV verse on the device, all words must match, grouped by book (done)
 - 0.7 Today tab: greeting, continue reading, a verse of the day from 67 well-known verses, share (done)
-- 0.8 listen, on-device voice
+- 0.8 listen: the system voice reads the chapter and outlines the verse it is on, keeps playing in the background; Search moved to its own tab (done)
 - 0.9 notes and the Saved tab
 - 1.0 first major, only on Joshua's call: full QA on every platform, App Store listing live, Mobbin pass, opus-ad film
 - 2.0 reading plans

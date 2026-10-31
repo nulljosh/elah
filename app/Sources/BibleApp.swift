@@ -21,6 +21,10 @@ struct RootView: View {
                 .tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
             ReaderView()
                 .tabItem { Label("Bible", systemImage: "book") }.tag("bible")
+            SearchView(inTab: true) { p in
+                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
+            }
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }.tag("search")
         }
         .tint(Theme.accent)
     }
@@ -34,10 +38,10 @@ struct ReaderView: View {
     @Environment(\.openURL) private var openURL
     @State private var picking = false
     @State private var reading = false
-    @State private var searching = false
     @AppStorage("serif") private var serif = false
     @AppStorage("spacing") private var spacing = 0.35
     @StateObject private var marks = Marks()
+    @StateObject private var speaker = Speaker()
     private let bible = Bible.shared
 
     private var place: Place { Place(book: book, chapter: chapter) }
@@ -51,10 +55,8 @@ struct ReaderView: View {
             .sheet(isPresented: $showNIV) { SafariView(url: bible.gatewayURL(place, .niv)).ignoresSafeArea() }
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
-            .sheet(isPresented: $searching) { SearchView { go($0) } }
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
-            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true }
-                if UserDefaults.standard.bool(forKey: "showSearch") { try? await Task.sleep(for: .seconds(1)); searching = true } }
+            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
         }
         .tint(Theme.accent)
     }
@@ -65,7 +67,7 @@ struct ReaderView: View {
                 Text(bible.title(place)).font(.system(.largeTitle, design: serif ? .serif : .default).bold()).padding(.bottom, 8)
                 ForEach(Array(bible.verses(place).enumerated()), id: \.offset) { i, v in
                     let ref = VerseRef(place: place, verse: i + 1)
-                    VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
+                    VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, speaking: speaker.verse == i + 1, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
                 }
                 HStack {
                     if let p = bible.previous(place) { chapterButton("chevron.left", bible.title(p)) { go(p) } }
@@ -104,13 +106,15 @@ struct ReaderView: View {
                 Button("King James Version", systemImage: "checkmark") {}
                 Button("New International Version (BibleGateway)") { openNIV() }
             } label: { Text("KJV").font(.subheadline.weight(.semibold)) }
-            Button { searching = true } label: { Label("Search", systemImage: "magnifyingglass") }
+            Button { speaker.toggle(bible.verses(place)) } label: {
+                Label(speaker.playing ? "Pause" : "Listen", systemImage: speaker.playing ? "pause.fill" : "headphones")
+            }
             Button { reading = true } label: { Label("Reading Settings", systemImage: "textformat.size") }
                 .popover(isPresented: $reading) { ReadingSettings().presentationCompactAdaptation(.sheet).presentationDetents([.height(340)]) }
         }
     }
 
-    private func go(_ p: Place) { book = p.book; chapter = p.chapter }
+    private func go(_ p: Place) { speaker.stop(); book = p.book; chapter = p.chapter }
 
     /// The NIV is licensed by Biblica, so it opens BibleGateway's own page rather than living in the app.
     private func openNIV() {
