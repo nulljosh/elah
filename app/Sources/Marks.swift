@@ -43,6 +43,8 @@ struct VerseRow: View {
     let number: Int
     let text: String
     let size: Double
+    var serif = false
+    var spacing = 0.35
     @ObservedObject var marks: Marks
     let ref: VerseRef
     let cite: String
@@ -51,8 +53,8 @@ struct VerseRow: View {
         let mark = marks.highlight(ref)
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             (Text("\(number) ").font(.system(size: size * 0.6, weight: .semibold)).foregroundColor(Theme.secondary)
-             + Text(text).font(.system(size: size)))
-                .lineSpacing(size * 0.35)
+             + Text(text).font(.system(size: size, design: serif ? .serif : .default)))
+                .lineSpacing(size * spacing)
             if marks.isBookmarked(ref) {
                 Image(systemName: "bookmark.fill").font(.caption).foregroundStyle(Theme.accent).padding(.leading, 6)
                     .accessibilityLabel("Bookmarked")

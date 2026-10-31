@@ -20,6 +20,9 @@ struct ReaderView: View {
     @State private var showNIV = false
     @Environment(\.openURL) private var openURL
     @State private var picking = false
+    @State private var reading = false
+    @AppStorage("serif") private var serif = false
+    @AppStorage("spacing") private var spacing = 0.35
     @StateObject private var marks = Marks()
     private let bible = Bible.shared
 
@@ -34,7 +37,8 @@ struct ReaderView: View {
             .sheet(isPresented: $showNIV) { SafariView(url: bible.gatewayURL(place, .niv)).ignoresSafeArea() }
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
-            .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks") }
+            .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
+            .task { if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
         }
         .tint(Theme.accent)
     }
@@ -42,10 +46,10 @@ struct ReaderView: View {
     private var kjv: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
-                Text(bible.title(place)).font(.largeTitle.bold()).padding(.bottom, 8)
+                Text(bible.title(place)).font(.system(.largeTitle, design: serif ? .serif : .default).bold()).padding(.bottom, 8)
                 ForEach(Array(bible.verses(place).enumerated()), id: \.offset) { i, v in
                     let ref = VerseRef(place: place, verse: i + 1)
-                    VerseRow(number: i + 1, text: v, size: textSize, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
+                    VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
                 }
                 HStack {
                     if let p = bible.previous(place) { chapterButton("chevron.left", bible.title(p)) { go(p) } }
@@ -84,10 +88,8 @@ struct ReaderView: View {
                 Button("King James Version", systemImage: "checkmark") {}
                 Button("New International Version (BibleGateway)") { openNIV() }
             } label: { Text("KJV").font(.subheadline.weight(.semibold)) }
-            Menu {
-                Button("Larger Text") { textSize = min(textSize + 2, 34) }
-                Button("Smaller Text") { textSize = max(textSize - 2, 13) }
-            } label: { Label("Text Size", systemImage: "textformat.size") }
+            Button { reading = true } label: { Label("Reading Settings", systemImage: "textformat.size") }
+                .popover(isPresented: $reading) { ReadingSettings().presentationCompactAdaptation(.sheet).presentationDetents([.height(340)]) }
         }
     }
 

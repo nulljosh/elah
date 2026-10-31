@@ -17,7 +17,7 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 | Book and chapter picker | yes | yes, native | done (0.3) |
 | Resume where you left off | yes | no | todo (home stays David and Goliath) |
 | Link to a passage and version | yes | no | todo |
-| Text size and reading theme | yes | size only | partial (0.3) |
+| Text size and reading theme | yes | size, typeface, spacing | done (0.5) |
 | Keyword search across the Bible | yes | no | todo |
 | Parallel versions side by side | yes | no | todo |
 | Verse of the day | yes | no | todo |
@@ -40,7 +40,7 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Native reader, offline KJV, chapter steps, book and chapter grid | all | M | done (0.3) |
 | Reference chip in the top bar opens the picker | YouVersion, Bible Gateway | S | done (0.3) |
 | Tap a verse: highlight in four colours, copy, share, bookmark | YouVersion, ESV, Bible Gateway | M | done (0.4) |
-| Reading settings sheet: size, serif or sans, line spacing, sepia | YouVersion, Dwell, Bible Gateway | S | 0.5 |
+| Reading settings sheet: size, serif or sans, line spacing | YouVersion, Dwell, Bible Gateway | S | done (0.5) |
 | Search every verse, results grouped by book | Olive Tree, Logos | M | 0.6 |
 | Today screen: continue reading, verse of the day | Bible Gateway, YouVersion | M | 0.7 |
 | Listen: on-device voice reads the chapter, verse follows | Dwell, YouVersion, ESV | M | 0.8 |
@@ -60,7 +60,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.2 brand kit, blue icon, design system, repo, landing (done)
 - 0.3 native SwiftUI app for iPhone, iPad and Mac: bundled KJV, David and Goliath home, chapter steps, book grid, text size, NIV opens BibleGateway in a Safari sheet (done)
 - 0.4 verse actions: press and hold a verse to highlight in four colours, bookmark, copy or share (done)
-- 0.5 reading settings sheet
+- 0.5 reading settings: text size slider, sans or serif, three line spacings (done)
 - 0.6 search
 - 0.7 Today screen and verse of the day
 - 0.8 listen, on-device voice
