@@ -1,0 +1,46 @@
+/* Bible design tokens. One source for the landing and the docs; any native app mirrors these values.
+   Everything sits on an 8 point grid. The accent is the only colour this app owns. */
+:root {
+  /* color */
+  --accent: #1745a8;        /* actions, links, focus ring */
+  --accent-light: #4f8df0;  /* icon gradient top */
+  --accent-deep: #1745a8;   /* icon gradient bottom */
+  --accent-ring: color-mix(in srgb, #1745a8 30%, transparent);
+  --bg: #faf8f4;
+  --surface: #f1ede6;
+  --line: #e3ddd3;
+  --text: #1f1d1a;
+  --text2: #6b655c;
+
+  /* type: the system font only */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --size-title: 22px;        /* the app name: 28 line, bold */
+  --size-body: 17px;         /* controls and reading text: 24 line */
+  --size-footnote: 13px;     /* captions: 18 line */
+
+  /* space: the 8 point grid */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --page: 20px;              /* side margin */
+  --measure: 680px;          /* reading column */
+
+  /* shape */
+  --control: 48px;           /* every control is a capsule this tall */
+  --r-card: 28px;
+  --r-group: 20px;
+  --r-pill: 999px;
+  --r-icon: 22%;             /* app icon corner, as a share of the side */
+
+  --ease: .2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #6ea8ff;
+    --accent-ring: color-mix(in srgb, #6ea8ff 30%, transparent);
+    --bg: #171614;
+    --surface: #211f1c;
+    --line: #33302b;
+    --text: #f3efe8;
+    --text2: #9a948a;
+  }
+}

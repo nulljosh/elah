@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bible</title>
+<meta name="description" content="Read the Bible in the King James or the NIV. Opens on David and Goliath.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font:var(--size-body)/24px var(--font)}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);padding:var(--s3) var(--page);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:var(--s3);font-size:var(--size-title);line-height:28px;font-weight:700}
+.brand img{width:32px;height:32px}
+form{display:flex;gap:var(--s2);flex:1 1 360px;max-width:var(--measure);margin-left:var(--s4)}
+input,select,button{height:var(--control);font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:0 var(--s4);transition:background var(--ease),border-color var(--ease)}
+input{flex:1;min-width:0}
+select{padding-right:var(--s3)}
+button{cursor:pointer;font-weight:600}
+button.go{background:var(--accent);border-color:var(--accent);color:#fff}
+@media(prefers-color-scheme:dark){button.go{background:#2f66d0;border-color:#2f66d0}}
+button:hover:not(.go){background:var(--line)}
+:is(input,select,button):focus-visible{outline:0;box-shadow:0 0 0 4px var(--accent-ring);border-color:var(--accent)}
+iframe{flex:1;border:0;width:100%;background:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="icon.svg" alt="">Bible</div>
+  <form id="f">
+    <input id="q" value="1 Samuel 17" aria-label="Passage" autocapitalize="off" autocomplete="off">
+    <select id="v" aria-label="Version"><option value="NIV">NIV</option><option value="KJV">KJV</option></select>
+    <button class="go">Go</button>
+    <button type="button" id="home" title="1 Samuel 17">David and Goliath</button>
+  </form>
+</header>
+<iframe id="r" title="Passage"></iframe>
+<script>
+// ponytail: BibleGateway allows framing, so it supplies the text and the licence. Own text source only if that changes.
+const HOME={q:'1 Samuel 17',v:'NIV'};
+const f=document.getElementById('f'),q=document.getElementById('q'),v=document.getElementById('v'),r=document.getElementById('r');
+const go=()=>{r.src='https://www.biblegateway.com/passage/?search='+encodeURIComponent(q.value)+'&version='+v.value};
+f.onsubmit=e=>{e.preventDefault();go()};
+v.onchange=go;
+document.getElementById('home').onclick=()=>{q.value=HOME.q;v.value=HOME.v;go()};
+go();
+</script>
+</body>
+</html>
