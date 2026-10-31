@@ -17,11 +17,16 @@ Live at [bible.jaybulb.com](https://bible.jaybulb.com).
 
 Any book, chapter or range: `Psalm 23`, `John 3:16`, `1 Samuel 17:45-47`. NIV and KJV. David and Goliath as the home page. Light and dark that follow your system.
 
+There's a native app too: iPhone, iPad and Mac, with the King James built in so it works offline.
+
 ## Run it
 
 ```sh
 open landing/index.html
+cd app && xcodegen generate && open Bible.xcodeproj
 ./deploy.sh   # copies the brand files into landing/ and deploys the Worker
 ```
 
 [Roadmap](docs/roadmap.md) · [Whitepaper](WHITEPAPER.md) · [Brand kit](brand/BRAND.md)
+
+KJV text from [thiagobodruk/bible](https://github.com/thiagobodruk/bible) (MIT), public domain.

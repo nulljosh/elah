@@ -1,0 +1,24 @@
+import SwiftUI
+
+/// Mirrors brand/tokens.css. One accent, warm neutrals, 8 point grid.
+enum Theme {
+    static let accent = Color(light: 0x1745a8, dark: 0x6ea8ff)
+    static let surface = Color(light: 0xf1ede6, dark: 0x211f1c)
+    static let secondary = Color(light: 0x6b655c, dark: 0x9a948a)
+    static let control: CGFloat = 48
+    static let page: CGFloat = 20
+    static let measure: CGFloat = 680
+}
+
+extension Color {
+    init(hex: UInt32) {
+        self.init(red: Double(hex >> 16 & 0xff) / 255, green: Double(hex >> 8 & 0xff) / 255, blue: Double(hex & 0xff) / 255)
+    }
+    init(light: UInt32, dark: UInt32) {
+        #if os(iOS)
+        self.init(UIColor { $0.userInterfaceStyle == .dark ? UIColor(Color(hex: dark)) : UIColor(Color(hex: light)) })
+        #else
+        self.init(NSColor(name: nil) { $0.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(Color(hex: dark)) : NSColor(Color(hex: light)) })
+        #endif
+    }
+}
