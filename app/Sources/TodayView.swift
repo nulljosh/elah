@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 /// Where you left off, and one verse a day. The verse is the same for everyone on a given day.
 struct TodayView: View {
@@ -6,6 +7,8 @@ struct TodayView: View {
     @AppStorage("book") private var book = Place.home.book
     @AppStorage("chapter") private var chapter = Place.home.chapter
     @State private var shareCard: (text: String, cite: String)?
+    @AppStorage("verseReminder") private var reminder = false
+    @AppStorage("verseMinute") private var minute = 8 * 60
     private let bible = Bible.shared
 
     static let verses = [
@@ -59,8 +62,18 @@ struct TodayView: View {
                             }
                         }
                     }
+                    card("Daily verse") {
+                        Toggle("Send me the verse of the day", isOn: $reminder).tint(Theme.button)
+                        if reminder {
+                            DatePicker("At", selection: Binding(
+                                get: { Calendar.current.startOfDay(for: .now).addingTimeInterval(Double(minute) * 60) },
+                                set: { minute = Calendar.current.component(.hour, from: $0) * 60 + Calendar.current.component(.minute, from: $0) }
+                            ), displayedComponents: .hourAndMinute)
+                        }
+                    }
                 }
                 .frame(maxWidth: Theme.measure, alignment: .leading)
+                .task(id: "\(reminder)\(minute)") { await DailyVerse.schedule(on: reminder, minute: minute) { reminder = $0 } }
                 .sheet(isPresented: Binding(get: { shareCard != nil }, set: { if !$0 { shareCard = nil } })) {
                     if let c = shareCard { ShareImageSheet(text: c.text, cite: c.cite) }
                 }
@@ -78,5 +91,35 @@ struct TodayView: View {
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.surface, in: RoundedRectangle(cornerRadius: 28))
+    }
+}
+
+/// The verse of the day as a local notification. Thirty days are queued ahead, refreshed every time Today appears.
+enum DailyVerse {
+    static let days = 30
+
+    /// Title and body for each of the next `days` days starting at `from`, at `minute` past midnight.
+    static func plan(from: Date = .now, minute: Int, bible: Bible = .shared) -> [(date: Date, cite: String, text: String)] {
+        let cal = Calendar.current, start = cal.startOfDay(for: from)
+        return (0..<days).compactMap { d in
+            guard let day = cal.date(byAdding: .day, value: d, to: start),
+                  let fire = cal.date(byAdding: .minute, value: minute, to: day), fire > from,
+                  let r = bible.ref(TodayView.ofTheDay(day)) else { return nil }
+            return (fire, "\(bible.title(r.place)):\(r.verse)", bible.verses(r.place)[r.verse - 1])
+        }
+    }
+
+    static func schedule(on: Bool, minute: Int, denied: (Bool) -> Void) async {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: (0...days).map { "verse-\($0)" })
+        guard on else { return }
+        guard (try? await center.requestAuthorization(options: [.alert, .sound])) == true else { return denied(false) }
+        for (i, p) in plan(minute: minute).enumerated() {
+            let content = UNMutableNotificationContent()
+            content.title = p.cite
+            content.body = p.text
+            let when = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: p.date)
+            try? await center.add(UNNotificationRequest(identifier: "verse-\(i)", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: when, repeats: false)))
+        }
     }
 }

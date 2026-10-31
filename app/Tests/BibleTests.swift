@@ -17,6 +17,15 @@ final class BibleTests: XCTestCase {
         XCTAssertLessThanOrEqual(refs.count, 8)
     }
 
+    func testDailyVersePlan() {
+        let morning = Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 2, hour: 7))!
+        let plan = DailyVerse.plan(from: morning, minute: 8 * 60)
+        XCTAssertEqual(plan.count, DailyVerse.days, "8:00 is still ahead at 7:00, so today counts")
+        XCTAssertEqual(Calendar.current.component(.hour, from: plan[0].date), 8)
+        XCTAssertEqual(plan[0].cite + " KJV", "\(TodayView.ofTheDay(morning)) KJV")
+        XCTAssertEqual(DailyVerse.plan(from: morning, minute: 6 * 60).count, DailyVerse.days - 1, "6:00 has passed, today is skipped")
+    }
+
     func testWholeCanon() {
         XCTAssertEqual(bible.books.count, 66)
         XCTAssertEqual(bible.books.reduce(0) { $0 + $1.chapters.count }, 1189)
