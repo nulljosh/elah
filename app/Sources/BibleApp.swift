@@ -6,10 +6,23 @@ import SafariServices
 @main
 struct BibleApp: App {
     var body: some Scene {
-        WindowGroup { ReaderView() }
+        WindowGroup { RootView() }
         #if os(macOS)
         .defaultSize(width: 760, height: 900)
         #endif
+    }
+}
+
+struct RootView: View {
+    @AppStorage("tab") private var tab = "bible"
+    var body: some View {
+        TabView(selection: $tab) {
+            TodayView { tab = "bible" }
+                .tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
+            ReaderView()
+                .tabItem { Label("Bible", systemImage: "book") }.tag("bible")
+        }
+        .tint(Theme.accent)
     }
 }
 

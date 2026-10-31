@@ -46,6 +46,16 @@ final class Bible {
         return p.book > 0 ? Place(book: p.book - 1, chapter: books[p.book - 1].chapters.count) : nil
     }
 
+    /// Parses "1 Samuel 17:49" into a verse, nil if the book, chapter or verse does not exist.
+    func ref(_ s: String) -> VerseRef? {
+        guard let space = s.lastIndex(of: " ") else { return nil }
+        let name = String(s[..<space]), cv = s[s.index(after: space)...].split(separator: ":")
+        guard cv.count == 2, let c = Int(cv[0]), let v = Int(cv[1]),
+              let b = books.firstIndex(where: { $0.name == name }) else { return nil }
+        let p = Place(book: b, chapter: c)
+        return verses(p).indices.contains(v - 1) ? VerseRef(place: p, verse: v) : nil
+    }
+
     /// Every verse containing all the words of the query, case and accent blind, in canon order.
     func search(_ query: String, limit: Int = 500) -> [(ref: VerseRef, text: String)] {
         let words = query.lowercased().split(separator: " ").map(String.init).filter { !$0.isEmpty }

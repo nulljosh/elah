@@ -50,3 +50,11 @@ final class SearchTests: XCTestCase {
         XCTAssertEqual(Bible.shared.search("the", limit: 10).count, 10)
     }
 }
+
+final class TodayTests: XCTestCase {
+    func testEveryVerseOfTheDayResolves() {
+        for s in TodayView.verses { XCTAssertNotNil(Bible.shared.ref(s), s) }
+        XCTAssertNil(Bible.shared.ref("1 Samuel 17:99"))
+        XCTAssertNil(Bible.shared.ref("Hezekiah 1:1"))
+    }
+}
