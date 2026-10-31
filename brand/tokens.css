@@ -1,46 +1,75 @@
-/* Bible design tokens. One source for the landing and the docs; any native app mirrors these values.
-   Everything sits on an 8 point grid. The accent is the only colour this app owns. */
+/* Bible design tokens. One source for the landing and the docs; app/Sources/Theme.swift mirrors these.
+   Shared system: 8 point grid, one radius set, 48 point capsule controls. The accent is the only colour Bible owns. */
+@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Bible Sans"; src: url("fonts/BibleSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
 :root {
-  /* color */
-  --accent: #1745a8;        /* actions, links, focus ring */
-  --accent-light: #4f8df0;  /* icon gradient top */
-  --accent-deep: #1745a8;   /* icon gradient bottom */
+  /* colour */
+  --accent: #1745a8;          /* actions, links, focus ring; 8:1 on paper */
+  --btn: #1745a8;             /* solid buttons, white label */
+  --frame: #1745a8;
+  --band: #1745a8;            /* full-bleed blue sections */
+  --band-sub: #d4defa;        /* secondary text on the band, AA */
+  --band-art: #9fbaf5;        /* engravings on the band */
+  --band-line: rgba(255, 255, 255, .22);
+  --accent-light: #4f8df0;    /* icon gradient top */
+  --accent-deep: #1745a8;     /* icon gradient bottom */
   --accent-ring: color-mix(in srgb, #1745a8 30%, transparent);
-  --bg: #faf8f4;
+  --ring: var(--accent-ring);
+  --bg: #faf8f4;              /* warm paper */
   --surface: #f1ede6;
   --line: #e3ddd3;
   --text: #1f1d1a;
   --text2: #6b655c;
+  --sub: #6b655c;
 
-  /* type: the system font only */
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --size-title: 22px;        /* the app name: 28 line, bold */
-  --size-body: 17px;         /* controls and reading text: 24 line */
-  --size-footnote: 13px;     /* captions: 18 line */
+  /* type: Bible Sans (Inter, OFL, quotes drawn as smooth stones), system font while it loads */
+  --font: "Bible Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: var(--font);
+  --serif: ui-serif, "New York", Georgia, serif;   /* the verses themselves */
+  --size-display: 64px;       /* hero: 64 line */
+  --size-title: 34px;         /* section heads: 40 line */
+  --size-headline: 20px;      /* card heads: 28 line */
+  --size-body: 17px;          /* 24 line */
+  --size-footnote: 13px;      /* 16 line */
 
   /* space: the 8 point grid */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
-  --page: 20px;              /* side margin */
-  --measure: 680px;          /* reading column */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+  --page: 20px;
+  --measure: 680px;
+  --wrap: 1120px;
 
   /* shape */
-  --control: 48px;           /* every control is a capsule this tall */
+  --control: 48px;
   --r-card: 28px;
   --r-group: 20px;
   --r-pill: 999px;
-  --r-icon: 22%;             /* app icon corner, as a share of the side */
-
+  --r-sq: 2px;                /* landing buttons and panels */
+  --r-icon: 22.5%;
+  --motion: .2s ease;
   --ease: .2s ease;
+
+  --scan: repeating-linear-gradient(to bottom, #000 0 1.5px, transparent 1.5px 3px);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .28 0 0 0 -.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --accent: #6ea8ff;
+    --btn: #2f66d0;
+    --frame: #2f66d0;
+    --band: #12347f;
+    --band-sub: #c9d6fb;
+    --band-art: #7d9df0;
     --accent-ring: color-mix(in srgb, #6ea8ff 30%, transparent);
-    --bg: #171614;
+    --bg: #171614;            /* warm graphite */
     --surface: #211f1c;
     --line: #33302b;
     --text: #f3efe8;
     --text2: #9a948a;
+    --sub: #9a948a;
   }
 }
