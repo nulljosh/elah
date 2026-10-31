@@ -24,6 +24,7 @@ button.go{background:var(--accent);border-color:var(--accent);color:#fff}
 @media(prefers-color-scheme:dark){button.go{background:#2f66d0;border-color:#2f66d0}}
 button:hover:not(.go){background:var(--line)}
 :is(input,select,button):focus-visible{outline:0;box-shadow:0 0 0 4px var(--accent-ring);border-color:var(--accent)}
+@media(max-width:640px){.brand{margin-right:auto}form{order:3;flex-basis:100%;max-width:none;margin-left:0}}
 iframe{flex:1;border:0;width:100%;background:#fff}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -35,8 +36,8 @@ iframe{flex:1;border:0;width:100%;background:#fff}
     <input id="q" value="1 Samuel 17" aria-label="Passage" autocapitalize="off" autocomplete="off">
     <select id="v" aria-label="Version"><option value="NIV">NIV</option><option value="KJV">KJV</option></select>
     <button class="go">Go</button>
-    <button type="button" id="home" title="1 Samuel 17">David and Goliath</button>
   </form>
+  <button type="button" id="home" title="1 Samuel 17">David and Goliath</button>
 </header>
 <iframe id="r" title="Passage"></iframe>
 <script>
