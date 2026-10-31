@@ -1,30 +1,34 @@
-# Bible loop handoff (2026-10-30, night)
+# Elah loop handoff (2026-10-30, near midnight)
 
 ## What the loop is
 
-The loop builds the Bible roadmap in `docs/roadmap.md` one version at a time, starting with the next open version (0.4). Each version closes the rows it names in the parity and gap matrices, ships on iPhone, iPad, Mac and the web page together, and refreshes both matrices. A feature is a minor and a fix is a patch. 1.0 is the first major and is Joshua's call, so the loop stops at 0.9 and waits for his yes before cutting 1.0. Versions are NIV and KJV only. No accounts, analytics or ads.
-
-QA: unit tests with `cd app && xcodegen generate && xcodebuild -scheme Bible -destination 'platform=macOS' test`. The web page gets a headless check at 390px in light and dark. The NIV opens BibleGateway in a Safari sheet, never an embedded web view. No GUI launches on Joshua's screen without asking.
+Two loops are live. One takes every screen of Elah, the King James Bible app for iPhone, iPad and Mac, to A+. The other finishes the first App Store submission. The repo is nulljosh/elah in ~/Documents/Code/elah. It was renamed from Bible tonight because Bible is taken on the store.
 
 ## Where things stand
 
-- Repo at 0.3.0: native SwiftUI app for iPhone, iPad and Mac (bundle `com.nulljosh.bible`), KJV bundled and readable offline, NIV in a Safari sheet, 4 tests pass, iOS archive signed. Pushed, and the privacy and support pages are live at bible.jaybulb.com/privacy and /support.
-- The web page opens on David and Goliath (1 Samuel 17, NIV) and frames BibleGateway.
-- The App Store record is not created. It needs Joshua's Apple web login (`asc web auth login`). Plain "Bible" is taken on the store. Elah (the valley where David met Goliath) is the proposed name, not probed or locked.
-- No iOS or Mac build is uploaded yet, and there are no store screenshots.
+- App 1.3.0: Today, Bible, Search and Saved tabs, a listening bar, highlights, notes, a share card and the Elah Sans font. 10 tests pass on Mac.
+- ASC record 6829146794 is named Elah (iOS). Version 1.3.0 is in PREPARE_FOR_SUBMISSION.
+- Build 202610310200 is uploaded through `asc workflow run upload-ios`.
+- The en-US listing text is pushed from `metadata/`.
+- Store screenshots are in `screenshots/iphone` (1320x2868) and `screenshots/ipad` (2064x2752), not yet uploaded.
+- The landing is at elah.jaybulb.com (bible.jaybulb.com still serves): Doré art, Bible characters through the page and the cross-reference arc footer.
+- The Apple web session was authenticated at 23:30. If it expires, run `asc web auth login --two-factor-method sms` with a code command, and Joshua sends the SMS code.
 
 ## Next, in order
 
-1. Joshua runs `asc web auth login`. That is his step; never type his password or code.
-2. Probe and lock the name with the asc-name-creator skill. Elah is the candidate.
-3. Create the app record with `asc web apps create`, and drop China from availability.
-4. Upload the iOS and Mac builds.
-5. Store screenshots, light and dark, same framing.
-6. `asc validate`, then submit on Joshua's yes.
-7. Then the loop picks up 0.4 verse actions (highlight in four colours, copy, share, bookmark), then 0.5 onward, one version at a time.
+1. Upload the store screenshots: `asc screenshots upload` for IPHONE_69 and IPAD_PRO_3GEN_129.
+2. Set the age rating (4+, no objectionable content), the content rights declaration (the KJV is public domain), the primary category Books and secondary Reference, the price (free), and availability in every territory except China.
+3. Publish App Privacy as Data Not Collected (`asc web privacy`), then attach build 202610310200 to 1.3.0.
+4. Run `asc validate --app 6829146794 --version 1.3.0`, fix what it lists, then submit.
+5. Add macOS to the record and ship the Mac build (`app/MacExportOptions.plist`, like Eponym's ship-mac).
+6. Screen QA fixes:
+   - Search: the result count shows as its own white card; fold it into the list header.
+   - iPad reader and Today: the column sits left of centre with a large empty right side.
+   - Shoot and check the verse menu, the note editor, the share sheet and the NIV Safari sheet in light and dark.
+7. Then 1.4: cross-references in the app, verse level, from OpenBible (CC BY).
 
 ## Restart prompt
 
 ```
-/loop until v1.0.0. Build out roadmap to v10. Bible loop, in ~/Documents/Code/elah. Read docs/LOOP-HANDOFF.md first, then take the next open version in docs/roadmap.md (0.4 first). Each version closes the rows it names, ships on iPhone, iPad, Mac and the web page together, and refreshes both matrices. Features are minors, fixes are patches. 1.0 is a major and waits for Joshua's yes, so stop at 0.9 and ask before cutting it. NIV and KJV only, no accounts, analytics or ads. Skip any step that needs Joshua's Apple login. No GUI launches on Joshua's screen without asking. Commit by exact path and push. Deploy the web with ./deploy.sh only when the landing changed. Replies under 2 lines, plain English.
+/loop until every screen is a+. Then finish the Elah App Store submission per docs/LOOP-HANDOFF.md.
 ```

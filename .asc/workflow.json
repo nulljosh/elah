@@ -1,0 +1,28 @@
+// Release automation. Run: asc workflow run ship-ios VERSION:x.y.z (SUBMIT:false uploads without submitting)
+{
+  "env": {
+    "IOS_APP_ID": "6829146794",
+    "VERSION": "",
+    "SUBMIT": "true"
+  },
+  "before_all": "asc auth status",
+  "workflows": {
+    "ship-ios": {
+      "description": "Bump, archive, upload, submit iOS",
+      "steps": [
+        { "name": "bump", "run": "cd app && sed -i '' \"s/MARKETING_VERSION: \\\".*\\\"/MARKETING_VERSION: \\\"$VERSION\\\"/; s/CURRENT_PROJECT_VERSION: .*/CURRENT_PROJECT_VERSION: $(date +%Y%m%d%H%M)/\" project.yml && xcodegen generate -q" },
+        { "name": "archive", "run": "cd app && asc xcode archive --project Bible.xcodeproj --scheme Bible --archive-path ../.asc/artifacts/Elah.xcarchive --overwrite --xcodebuild-flag=-allowProvisioningUpdates --output json" },
+        { "name": "export", "run": "cd app && asc xcode export --archive-path ../.asc/artifacts/Elah.xcarchive --export-options ExportOptions.plist --xcodebuild-flag=-allowProvisioningUpdates --overwrite --ipa-path ../.asc/artifacts/Elah.ipa --output json" },
+        { "name": "publish", "if": "SUBMIT", "run": "asc publish appstore --app $IOS_APP_ID --ipa .asc/artifacts/Elah.ipa --version $VERSION --wait --submit --confirm --output json" }
+      ]
+    },
+    "upload-ios": {
+      "description": "Archive and upload iOS without submitting",
+      "steps": [
+        { "name": "archive", "run": "cd app && xcodegen generate -q && asc xcode archive --project Bible.xcodeproj --scheme Bible --archive-path ../.asc/artifacts/Elah.xcarchive --overwrite --xcodebuild-flag=-allowProvisioningUpdates --output json" },
+        { "name": "export", "run": "cd app && asc xcode export --archive-path ../.asc/artifacts/Elah.xcarchive --export-options ExportOptions.plist --xcodebuild-flag=-allowProvisioningUpdates --overwrite --ipa-path ../.asc/artifacts/Elah.ipa --output json" },
+        { "name": "upload", "run": "asc builds upload --app $IOS_APP_ID --ipa .asc/artifacts/Elah.ipa --output json" }
+      ]
+    }
+  }
+}
