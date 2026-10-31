@@ -6,6 +6,11 @@ Read the Bible in the NIV or the King James. It opens on David and Goliath.
 
 No account, no ads, no tracking. One page, a search box and a version picker. Type any passage, pick NIV or KJV, and the text comes from BibleGateway. One button takes you back to 1 Samuel 17.
 
+<p>
+<img src="docs/screenshots/light.png" width="360" alt="1 Samuel 17 in the NIV, light">
+<img src="docs/screenshots/dark.png" width="360" alt="1 Samuel 17 in the NIV, dark">
+</p>
+
 Live at [bible.jaybulb.com](https://bible.jaybulb.com).
 
 ## Features
