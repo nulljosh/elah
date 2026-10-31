@@ -51,6 +51,8 @@ struct SavedView: View {
                     .buttonStyle(.plain)
                 }
             }
+            .frame(maxWidth: 760)
+            .frame(maxWidth: .infinity)
             .navigationTitle("Saved")
         }
     }

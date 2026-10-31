@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80" height="80" alt="Bible icon">
 
-![version](https://img.shields.io/badge/version-0.9.0-1745a8) ![license](https://img.shields.io/badge/license-MIT-1745a8)
+![version](https://img.shields.io/badge/version-1.0.0-1745a8) ![license](https://img.shields.io/badge/license-MIT-1745a8)
 
 Read the Bible in the NIV or the King James. It opens on David and Goliath.
 
@@ -17,7 +17,7 @@ Live at [bible.jaybulb.com](https://bible.jaybulb.com).
 
 Any book, chapter or range: `Psalm 23`, `John 3:16`, `1 Samuel 17:45-47`. NIV and KJV. David and Goliath as the home page. Light and dark that follow your system.
 
-There's a native app too: iPhone, iPad and Mac, with the King James built in so it works offline.
+There's a native app too, for iPhone, iPad and Mac. The King James is built in and works offline. Highlight, bookmark and add notes to any verse, search the whole Bible, read the verse of the day, or have a chapter read aloud.
 
 ## Run it
 

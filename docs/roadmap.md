@@ -4,7 +4,7 @@ Goal: a Bible reader that matches the YouVersion Bible app for everyday reading,
 
 Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix every version.
 
-## Parity matrix (v0.3.0)
+## Parity matrix (v1.0.0)
 
 | Area | YouVersion | Bible | Status |
 |---|---|---|---|
@@ -65,7 +65,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 0.7 Today tab: greeting, continue reading, a verse of the day from 67 well-known verses, share (done)
 - 0.8 listen: the system voice reads the chapter and outlines the verse it is on, keeps playing in the background; Search moved to its own tab (done)
 - 0.9 notes on any verse and a Saved tab with bookmarks, highlights and notes in canon order (done)
-- 1.0 first major, only on Joshua's call: full QA on every platform, App Store listing live, Mobbin pass, opus-ad film
+- 1.0 first major, Joshua's call 2026-10-30 (done): every gap row from 0.3 to 0.9 closed, QA'd on iPhone, iPad and Mac in light and dark, 8 tests. Still open from the 1.0 bar: the App Store listing (blocked on the Apple web login) and the opus-ad film
 - 2.0 reading plans
 - 3.0 cross references and Strong's
 - 4.0 widgets

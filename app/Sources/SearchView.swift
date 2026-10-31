@@ -46,6 +46,8 @@ struct SearchView: View {
                 let q = query
                 hits = await Task.detached { Bible.shared.search(q) }.value
             }
+            .frame(maxWidth: 760)
+            .frame(maxWidth: .infinity)
             .navigationTitle("Search")
             .toolbar { if !inTab { ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } } } }
         }
