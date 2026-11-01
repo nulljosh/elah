@@ -94,3 +94,4 @@ Ideas it does not have, none started: a home you choose and one button back to i
 
 ## Ingested 2026-10-31
 - [ ] iOS 1.3.0 is REJECTED (Mac 1.3.0 WAITING_FOR_REVIEW). Likely 4.3 spam or 4.2 for the NIV Safari sheet, now cut. Read the reason with `asc web review show --app 6829146794` after 2026-11-01 00:57Z (Apple sign-in throttled until then), then answer with the nine answers. Nothing goes to Apple without Joshua's yes.
+- [ ] Every Bible, as native text, never a web view (Joshua, 2026-10-31). Public domain, bundled offline: BSB (Berean Standard, public domain since 2023), WEB, ASV, YLT, Darby, Douay-Rheims. Licensed, as native text through the publisher's own API with a key: ESV (Crossway API), NLT (Tyndale API). NIV needs a licence from Biblica; scraping it is a copyright breach and an App Store 5.2 rejection, so it waits on that licence. Version picker in the top bar, same on web and app.
