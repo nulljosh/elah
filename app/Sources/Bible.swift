@@ -8,6 +8,26 @@ struct Place: Codable, Hashable {
     static let home = Place(book: 8, chapter: 17)
 }
 
+/// Every version Elah carries, all public domain and bundled as text. The KJV is the canon the rest follow:
+/// book names, chapter counts, references and search scope.
+enum Version: String, CaseIterable, Identifiable {
+    case kjv = "KJV", bsb = "BSB", asv = "ASV", nheb = "NHEB", ylt = "YLT", darby = "Darby", webster = "Webster", bbe = "BBE", geneva = "Geneva"
+    var id: String { rawValue }
+    var title: String {
+        switch self {
+        case .kjv: "King James Version"
+        case .bsb: "Berean Standard Bible"
+        case .asv: "American Standard Version"
+        case .nheb: "New Heart English Bible"
+        case .ylt: "Young's Literal Translation"
+        case .darby: "Darby Bible"
+        case .webster: "Webster Bible"
+        case .bbe: "Bible in Basic English"
+        case .geneva: "Geneva Bible (1599)"
+        }
+    }
+}
+
 struct Book: Decodable {
     let name: String
     let chapters: [[String]]
@@ -24,6 +44,23 @@ final class Bible {
     }
 
     func verses(_ p: Place) -> [String] {
+        guard books.indices.contains(p.book), books[p.book].chapters.indices.contains(p.chapter - 1) else { return [] }
+        return books[p.book].chapters[p.chapter - 1]
+    }
+
+    private var others: [Version: [Book]] = [:]
+    private let lock = NSLock()
+
+    /// A chapter in any version. Other versions load from the bundle on first use; a verse a version leaves out is "".
+    func verses(_ p: Place, _ v: Version) -> [String] {
+        guard v != .kjv else { return verses(p) }
+        lock.lock()
+        if others[v] == nil {
+            let raw = Bundle.main.url(forResource: v.rawValue.lowercased(), withExtension: "json").flatMap { try? Data(contentsOf: $0) } ?? Data()
+            others[v] = (try? JSONDecoder().decode([Book].self, from: raw)) ?? []
+        }
+        let books = others[v] ?? []
+        lock.unlock()
         guard books.indices.contains(p.book), books[p.book].chapters.indices.contains(p.chapter - 1) else { return [] }
         return books[p.book].chapters[p.chapter - 1]
     }

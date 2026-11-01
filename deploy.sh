@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 mkdir -p landing/fonts
 cp brand/tokens.css brand/mark.svg icon.svg landing/
 cp fonts/*.woff2 fonts/OFL.txt landing/fonts/
-cp app/Sources/Resources/kjv.json landing/
+mkdir -p landing/v && for v in kjv bsb asv nheb ylt darby webster bbe geneva; do cp app/Sources/Resources/$v.json landing/v/; done
 cp favicon.svg favicon-32.png apple-touch-icon.png landing/ 2>/dev/null || true
 [ "$1" = "--copy-only" ] && exit 0
 npx wrangler deploy

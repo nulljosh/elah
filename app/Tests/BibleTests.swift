@@ -6,6 +6,15 @@ import ImageIO
 final class BibleTests: XCTestCase {
     let bible = Bible.shared
 
+    func testEveryVersionCarriesTheWholeCanon() {
+        for v in Version.allCases {
+            let first = bible.verses(Place(book: 0, chapter: 1), v), goliath = bible.verses(.home, v)
+            XCTAssertFalse(first.first?.isEmpty ?? true, "\(v.rawValue) Genesis 1")
+            XCTAssertEqual(goliath.count, 58, "\(v.rawValue) 1 Samuel 17")
+            XCTAssertFalse(bible.verses(Place(book: 65, chapter: 22), v).isEmpty, "\(v.rawValue) Revelation 22")
+        }
+    }
+
     func testHomeIsDavidAndGoliath() {
         XCTAssertEqual(bible.title(.home), "1 Samuel 17")
         XCTAssertTrue(bible.verses(.home)[48].contains("smote the Philistine in his forehead"))

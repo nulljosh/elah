@@ -74,10 +74,10 @@ h3 { font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -.02e
 .frow > div:not(.art) { padding: var(--sp-7) clamp(24px, 6vw, 96px); max-width: 560px; }
 .frow h3 { font-size: clamp(32px, 3.2vw, 48px); line-height: 1.05; font-weight: 700; letter-spacing: -.03em; }
 .frow p:last-child { margin-top: var(--sp-4); color: var(--band-sub); }
-.cells { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--band-line); }
+.cells { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--band-line); }
 .cell { padding: var(--sp-6) var(--sp-6) var(--sp-7); border-right: 1px solid var(--band-line); border-bottom: 1px solid var(--band-line); }
-.cell:nth-child(3n) { border-right: 0; }
-.cell:nth-last-child(-n+3) { border-bottom: 0; }
+.cell:nth-child(2n) { border-right: 0; }
+.cell:nth-last-child(-n+2) { border-bottom: 0; }
 .cell .label { margin-bottom: var(--sp-5); }
 .cell p:last-child { margin-top: var(--sp-3); color: var(--band-sub); font-size: 15px; line-height: 22px; }
 

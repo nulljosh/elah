@@ -76,6 +76,7 @@ struct ReaderView: View {
     @AppStorage("book") private var book = Place.home.book
     @AppStorage("chapter") private var chapter = Place.home.chapter
     @AppStorage("textSize") private var textSize = 19.0
+    @AppStorage("version") private var version = Version.kjv.rawValue
     @State private var picking = false
     @State private var reading = false
     @AppStorage("serif") private var serif = false
@@ -85,6 +86,8 @@ struct ReaderView: View {
     private let bible = Bible.shared
 
     private var place: Place { Place(book: book, chapter: chapter) }
+    private var current: Version { Version(rawValue: version) ?? .kjv }
+    private var text: [String] { bible.verses(place, current) }
 
     var body: some View {
         NavigationStack {
@@ -95,7 +98,7 @@ struct ReaderView: View {
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
-            .task { if UserDefaults.standard.bool(forKey: "showPlayer") { speaker.preview(bible.verses(place), at: 12) }
+            .task { if UserDefaults.standard.bool(forKey: "showPlayer") { speaker.preview(text, at: 12) }
                 if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }
         }
         .tint(Theme.accent)
@@ -105,9 +108,11 @@ struct ReaderView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 Text(bible.title(place)).font(serif ? .system(.largeTitle, design: .serif).bold() : Theme.sans(34, .bold, relativeTo: .largeTitle)).padding(.bottom, 8)
-                ForEach(Array(bible.verses(place).enumerated()), id: \.offset) { i, v in
-                    let ref = VerseRef(place: place, verse: i + 1)
-                    VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, speaking: speaker.verse == i + 1, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) KJV")
+                ForEach(Array(text.enumerated()), id: \.offset) { i, v in
+                    if !v.isEmpty {
+                        let ref = VerseRef(place: place, verse: i + 1)
+                        VerseRow(number: i + 1, text: v, size: textSize, serif: serif, spacing: spacing, speaking: speaker.verse == i + 1, marks: marks, ref: ref, cite: "\(bible.title(place)):\(i + 1) \(current.rawValue)")
+                    }
                 }
                 HStack {
                     if let p = bible.previous(place) { chapterButton("chevron.left", bible.title(p)) { go(p) } }
@@ -120,7 +125,7 @@ struct ReaderView: View {
             .padding(.horizontal, Theme.page).padding(.vertical, 24)
             .frame(maxWidth: .infinity)
         }
-        .id(place)
+        .id("\(place.book).\(place.chapter).\(version)")
         .safeAreaInset(edge: .bottom) { if speaker.active { listenBar } }
     }
 
@@ -134,7 +139,7 @@ struct ReaderView: View {
             Spacer()
             Group {
                 Button { speaker.skip(-1) } label: { Image(systemName: "backward.fill") }.accessibilityLabel("Previous verse")
-                Button { speaker.toggle(bible.verses(place)) } label: { Image(systemName: speaker.playing ? "pause.fill" : "play.fill") }
+                Button { speaker.toggle(text) } label: { Image(systemName: speaker.playing ? "pause.fill" : "play.fill") }
                     .accessibilityLabel(speaker.playing ? "Pause" : "Play")
                 Button { speaker.skip(1) } label: { Image(systemName: "forward.fill") }.accessibilityLabel("Next verse")
                 Menu {
@@ -177,7 +182,13 @@ struct ReaderView: View {
             .accessibilityLabel("Choose book and chapter, now \(bible.title(place))")
         }
         ToolbarItemGroup(placement: .primaryAction) {
-            Button { speaker.toggle(bible.verses(place)) } label: {
+            Menu {
+                Picker("Version", selection: Binding(get: { version }, set: { speaker.stop(); version = $0 })) {
+                    ForEach(Version.allCases) { Text($0.title).tag($0.rawValue) }
+                }
+            } label: { Text(current.rawValue).font(.subheadline.weight(.semibold)) }
+            .accessibilityLabel("Version, now \(current.title)")
+            Button { speaker.toggle(text) } label: {
                 Label(speaker.playing ? "Pause" : "Listen", systemImage: speaker.playing ? "pause.fill" : "headphones")
             }
             Button { reading = true } label: { Label("Reading Settings", systemImage: "textformat.size") }
