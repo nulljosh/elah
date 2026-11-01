@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/ElahSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="landing.css">
+<link rel="stylesheet" href="hero.css?v=1">
 <script src="landing.js" defer></script>
 </head>
 <body>
@@ -40,14 +41,7 @@
      David Slays Goliath, Saul Attempts to Kill David, David Shows Saul How He Spared His Life, David Mourns the Death of Absalom. -->
 <main id="top">
 <section class="hero" id="hero">
-  <div class="hero-stage" aria-hidden="true">
-    <div class="art" style="--img: url(art/goliath.png)"></div>
-    <div class="phones">
-      <picture><source media="(prefers-color-scheme: dark)" srcset="shots/dark-search.jpg"><img src="shots/light-search.jpg" alt="" width="600" height="1304"></picture>
-      <picture><source media="(prefers-color-scheme: dark)" srcset="shots/dark-bible.jpg"><img src="shots/light-bible.jpg" alt="" width="600" height="1304"></picture>
-      <picture><source media="(prefers-color-scheme: dark)" srcset="shots/dark-today.jpg"><img src="shots/light-today.jpg" alt="" width="600" height="1304"></picture>
-    </div>
-  </div>
+  <div class="hero-bg" aria-hidden="true" inert><div class="ewall" id="ewall"></div></div>
   <div class="wrap center hero-copy">
     <p class="label">Elah &middot; Nine Bibles, offline, on your iPhone, iPad and Mac</p>
     <h1><a href="read">Read the Bible, anywhere</a></h1>
@@ -130,5 +124,6 @@
 </footer>
 
 <script src="footer-band.js" defer></script>
+<script src="hero.js?v=1" defer></script>
 </body>
 </html>

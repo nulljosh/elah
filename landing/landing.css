@@ -187,15 +187,6 @@ h3 { font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -.02e
   .btn, .row { transition: none; }
 }
 
-/* Elah: the demo sits behind the hero copy, phones fanned over the engraving */
-.hero { position: relative; overflow: hidden; }
-.hero-stage { position: absolute; inset: 0; z-index: 0; }
-.hero-stage .art { position: absolute; inset: 0; opacity: .4; -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); }
-.phones { position: absolute; left: 50%; bottom: -30%; width: min(1100px, 140vw); transform: translateX(-50%); display: flex; justify-content: center; gap: clamp(12px, 3vw, 40px); opacity: .5; }
-.phones img { width: clamp(150px, 22vw, 300px); height: auto; border-radius: 28px; box-shadow: 0 24px 64px rgba(0, 0, 0, .25); }
-.phones picture:nth-child(2) img { transform: translateY(-48px); }
-.hero-copy { position: relative; z-index: 1; padding-bottom: clamp(300px, 40vw, 520px); }
-.hero h1, .hero .lead, .hero .label { text-shadow: 0 1px 24px var(--bg); }
 .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); max-width: var(--wrap); margin: var(--sp-7) auto 0; padding: 0 var(--sp-5); }
 .shots img { width: 100%; height: auto; border-radius: 24px; box-shadow: 0 16px 48px rgba(0, 0, 0, .18); }
 @media (max-width: 760px) { .shots { grid-template-columns: repeat(2, 1fr); } }
