@@ -1,4 +1,4 @@
-# Elah loop handoff (2026-10-31, just after midnight)
+# Elah loop handoff (2026-10-31, evening)
 
 ## What the loop is
 
@@ -7,19 +7,19 @@ One loop takes Elah, the King James Bible app for iPhone, iPad and Mac, up the v
 ## Where things stand
 
 - Repo is at 2.0.0: reading plans on Today (four plans, check a day off, progress). Before that, 1.5.0: cross references on every verse (OpenBible.info, CC BY, built by `scripts/gen_xrefs.py`), an animated launch splash, and a daily verse notification on Today. 13 tests pass on Mac.
-- ASC record 6829146794. iOS 1.3.0 and Mac 1.3.0 are both WAITING_FOR_REVIEW (submitted 2026-10-30). Listing has Bible, Search and Saved shots per device; the retaken Today shots are in `screenshots/` and go up with the next version.
-- iOS build for 1.4.0 is uploaded, unattached. A new version can only be created once 1.3.0 clears review.
+- ASC record 6829146794. iOS 1.3.0 was rejected and its submission cancelled; the reason was never read (Apple sign-in throttled). iOS 2.1.0 is WAITING_FOR_REVIEW with nine Bibles; Mac 1.3.0 is still WAITING_FOR_REVIEW. The 2.0.0 reading plans ride with them.
+- The NIV was cut on 2026-10-31. Nine public domain Bibles are bundled offline as real text (KJV, BSB, ASV, New Heart, Young's, Darby, Webster, Basic English, Geneva), picked from a version picker in the top bar. The web reader shows the same text, and the landing says nine Bibles.
 - App Privacy is published as Data Not Collected. Age rating 4+, Books and Reference, free, every territory but China.
 
 ## Next, in order
 
-1. When 1.3.0 is approved, create version 2.0.0 on iOS and Mac with `--copy-metadata-from 1.3.0`, upload a 2.0.0 build of each (`asc workflow run upload-ios`, Mac via xcodebuild archive and export with `app/MacExportOptions.plist`), add the Today shots, What's New, then validate and submit.
-2. If review rejects, read the reason with `asc web review show` and answer it; never resubmit unchanged.
-3. 2.0 is built. Still owed for the major: a Mobbin pass over the rival sheets and the opus-ad film. Ship 2.0.0 to the store in place of 1.5 if 1.3.0 clears first.
-4. Screen QA leftovers: search result count card, verse menu, note editor, share sheet and NIV sheet in light and dark.
+1. Watch iOS 2.1.0 and Mac 1.3.0 in review. If either is rejected, read the reason with `asc web review show` and answer it on Joshua's yes; never resubmit unchanged. The old 1.3.0 iOS rejection was cancelled, so its reason is moot unless it comes back.
+2. When the review clears, the 2.0.0 Today shots and What's New go up with the next version (`--copy-metadata-from`, upload each platform's build, validate, submit).
+3. 2.0 is built. Still owed for the major: a Mobbin pass over the rival sheets and the opus-ad film.
+4. Screen QA leftovers: search result count card, verse menu, note editor and share sheet in light and dark.
 
 ## Restart prompt
 
 ```
-/loop Ship Elah 2.0.0 to the App Store on iPhone, iPad and Mac once 1.3.0 clears review, per docs/LOOP-HANDOFF.md. Then the Mobbin pass and the opus-ad film for the 2.0 major.
+/loop Ship Elah 2.0.0 to the App Store on iPhone, iPad and Mac once iOS 2.1.0 and Mac 1.3.0 clear review, per docs/LOOP-HANDOFF.md. Then the Mobbin pass and the opus-ad film for the 2.0 major.
 ```
