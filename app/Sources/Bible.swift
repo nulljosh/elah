@@ -8,12 +8,6 @@ struct Place: Codable, Hashable {
     static let home = Place(book: 8, chapter: 17)
 }
 
-enum Version: String, CaseIterable, Codable, Identifiable {
-    case kjv = "KJV", niv = "NIV"
-    var id: String { rawValue }
-    var title: String { self == .kjv ? "King James Version" : "New International Version" }
-}
-
 struct Book: Decodable {
     let name: String
     let chapters: [[String]]
@@ -86,12 +80,5 @@ final class Bible {
 
     func crossRefs(_ r: VerseRef) -> [VerseRef] {
         (xrefs[r.key] ?? []).compactMap(Marks.ref).filter { verses($0.place).indices.contains($0.verse - 1) }
-    }
-
-    /// BibleGateway page for a chapter, used for the NIV, which is licensed and not bundled.
-    func gatewayURL(_ p: Place, _ v: Version) -> URL {
-        var c = URLComponents(string: "https://www.biblegateway.com/passage/")!
-        c.queryItems = [URLQueryItem(name: "search", value: title(p)), URLQueryItem(name: "version", value: v.rawValue)]
-        return c.url!
     }
 }

@@ -4,7 +4,7 @@
 
 Read the King James Bible on your iPhone, iPad and Mac. It opens on David and Goliath, in the valley of Elah.
 
-No account, no ads, no tracking. One page, a search box and a version picker. Type any passage, pick NIV or KJV, and the text comes from BibleGateway. One button takes you back to 1 Samuel 17.
+No account, no ads, no tracking. One page and a search box. Type any passage and read it in the King James, the same public domain text the app carries. One button takes you back to 1 Samuel 17.
 
 <p>
 <img src="docs/screenshots/light.png" width="360" alt="1 Samuel 17 in the NIV, light">
@@ -15,7 +15,7 @@ Live at [elah.jaybulb.com](https://elah.jaybulb.com).
 
 ## Features
 
-Any book, chapter or range: `Psalm 23`, `John 3:16`, `1 Samuel 17:45-47`. NIV and KJV. David and Goliath as the home page. Light and dark that follow your system.
+Any book, chapter or range: `Psalm 23`, `John 3:16`, `1 Samuel 17:45-47`. The King James. David and Goliath as the home page. Light and dark that follow your system.
 
 There's a native app too, for iPhone, iPad and Mac. The King James is built in and works offline. Highlight, bookmark and add notes to any verse, search the whole Bible, read the verse of the day, or have a chapter read aloud.
 

@@ -1,6 +1,6 @@
 # Elah roadmap
 
-Goal: a Bible reader that matches the YouVersion Bible app for everyday reading, with its own brand and code. It opens on David and Goliath, 1 Samuel 17, in the NIV, and reads the NIV and the King James. The native app reads the KJV from text bundled in the app and opens the NIV on BibleGateway, since Biblica licenses the NIV.
+Goal: a Bible reader that matches the YouVersion Bible app for everyday reading, with its own brand and code. It opens on David and Goliath, 1 Samuel 17, and reads the King James, the same bundled public domain text on the web and in the app. The NIV and its BibleGateway frame and sheet were cut 2026-10-31 so nothing is web.
 
 Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix every version.
 
@@ -10,7 +10,7 @@ Reference: the YouVersion Bible app and biblegateway.com. Re-check the matrix ev
 |---|---|---|---|
 | Open on a chosen passage | no, resumes | opens on David and Goliath, one button returns to it | done |
 | Read a passage by reference | yes | search box, any book, chapter or range | done (BibleGateway does the parsing) |
-| Versions | 2,000+ | NIV and KJV | done, on purpose |
+| Versions | 2,000+ | KJV | done, on purpose |
 | Light and dark | yes | follows the system | done |
 | Landing, brand kit, icon, design system | n/a | tokens, Icon Composer bundle, brand doc | done (0.2) |
 | Previous and next chapter | yes | yes, native | done (0.3) |
@@ -86,8 +86,11 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 
 ## Licensing
 
-BibleGateway supplies the NIV and the licence that goes with it. The KJV is public domain. The NIV is not: Biblica licenses it, so a native app or an own-text source needs a licence or a licensed API before it ships. Settle that before 0.6. Until then the frame is the product.
+The KJV is public domain and is the only version. The NIV would need a licence from Biblica, so it stays out.
 
 ## Beyond YouVersion
 
 Ideas it does not have, none started: a home you choose and one button back to it, passage links that carry the version, no account at all.
+
+## Ingested 2026-10-31
+- [ ] iOS 1.3.0 is REJECTED (Mac 1.3.0 WAITING_FOR_REVIEW). Likely 4.3 spam or 4.2 for the NIV Safari sheet, now cut. Read the reason with `asc web review show --app 6829146794` after 2026-11-01 00:57Z (Apple sign-in throttled until then), then answer with the nine answers. Nothing goes to Apple without Joshua's yes.

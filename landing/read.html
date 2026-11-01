@@ -7,14 +7,14 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#171614" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Read the Bible in the King James or the NIV. Opens on David and Goliath.">
+<meta name="description" content="Read the King James Bible. Opens on David and Goliath.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="tokens.css">
 <style>
 *{box-sizing:border-box}
-body{margin:0;height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font:var(--size-body)/24px var(--font)}
+body{margin:0;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font:var(--size-body)/24px var(--font)}
 header{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);padding:var(--s3) var(--page);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:var(--s3);font-size:var(--size-title);line-height:28px;font-weight:700}
 .brand img{width:32px;height:32px}
@@ -28,7 +28,11 @@ button.go{background:var(--accent);border-color:var(--accent);color:#fff}
 button:hover:not(.go){background:var(--line)}
 :is(input,select,button):focus-visible{outline:0;box-shadow:0 0 0 4px var(--accent-ring);border-color:var(--accent)}
 @media(max-width:640px){.brand{margin-right:auto}form{order:3;flex-basis:100%;max-width:none;margin-left:0}}
-iframe{flex:1;border:0;width:100%;background:#fff}
+main{width:100%;max-width:var(--measure);margin:0 auto;padding:var(--s6) var(--page) var(--s7)}
+main h1{font-size:var(--size-title);line-height:32px;margin:0 0 var(--s4)}
+main p{margin:0 0 var(--s3);font-size:19px;line-height:30px}
+main sup{color:var(--text2,#888);font-size:12px;font-weight:600;margin-right:4px}
+nav{display:flex;justify-content:space-between;gap:var(--s3);margin-top:var(--s6)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -37,21 +41,45 @@ iframe{flex:1;border:0;width:100%;background:#fff}
   <a class="brand" href="/" style="color:inherit;text-decoration:none"><img src="icon.svg" alt="">Elah</a>
   <form id="f">
     <input id="q" value="1 Samuel 17" aria-label="Passage" autocapitalize="off" autocomplete="off">
-    <select id="v" aria-label="Version"><option value="NIV">NIV</option><option value="KJV">KJV</option></select>
     <button class="go">Go</button>
   </form>
   <button type="button" id="home" title="1 Samuel 17">David and Goliath</button>
 </header>
-<iframe id="r" title="Passage"></iframe>
+<main id="r" aria-live="polite"><p>Loading the King James text...</p></main>
 <script>
-// ponytail: BibleGateway allows framing, so it supplies the text and the licence. Own text source only if that changes.
-const HOME={q:'1 Samuel 17',v:'NIV'};
-const f=document.getElementById('f'),q=document.getElementById('q'),v=document.getElementById('v'),r=document.getElementById('r');
-const go=()=>{r.src='https://www.biblegateway.com/passage/?search='+encodeURIComponent(q.value)+'&version='+v.value};
-f.onsubmit=e=>{e.preventDefault();go()};
-v.onchange=go;
-document.getElementById('home').onclick=()=>{q.value=HOME.q;v.value=HOME.v;go()};
-go();
+// The King James is public domain and bundled, the same text the app reads. No frame, no ads.
+const HOME='1 Samuel 17';
+const f=document.getElementById('f'),q=document.getElementById('q'),r=document.getElementById('r');
+const norm=t=>t.toLowerCase().replace(/[^a-z0-9]/g,'');
+let bible=[];
+const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function find(ref){
+  const m=ref.trim().match(/^(.+?)\s*(\d+)?(?::(\d+)(?:\s*-\s*(\d+))?)?$/);
+  if(!m)return null;
+  const key=norm(m[1]);
+  const b=bible.findIndex(x=>norm(x.name)===key)>-1?bible.findIndex(x=>norm(x.name)===key):bible.findIndex(x=>norm(x.name).startsWith(key));
+  if(b<0)return null;
+  const c=+(m[2]||1),ch=bible[b].chapters[c-1];
+  if(!ch)return null;
+  const from=+(m[3]||1),to=+(m[4]||m[3]||ch.length);
+  return {b,c,from:Math.max(1,from),to:Math.min(ch.length,to)};
+}
+function show(ref){
+  const p=find(ref);
+  if(!p){r.innerHTML='<p>No passage called "'+esc(ref)+'". Try Psalm 23 or John 3:16.</p>';return}
+  const {b,c,from,to}=p,book=bible[b],verses=book.chapters[c-1];
+  const title=book.name+' '+c+(from>1||to<verses.length?':'+from+(to>from?'-'+to:''):'');
+  let h='<h1>'+esc(title)+'</h1>';
+  for(let i=from;i<=to;i++)h+='<p><sup>'+i+'</sup>'+esc(verses[i-1])+'</p>';
+  const prev=c>1?book.name+' '+(c-1):b>0?bible[b-1].name+' '+bible[b-1].chapters.length:null;
+  const next=c<book.chapters.length?book.name+' '+(c+1):b<bible.length-1?bible[b+1].name+' 1':null;
+  h+='<nav>'+(prev?'<button type="button" data-go="'+prev+'">&larr; '+esc(prev)+'</button>':'<span></span>')+(next?'<button type="button" data-go="'+next+'">'+esc(next)+' &rarr;</button>':'')+'</nav>';
+  r.innerHTML=h;document.title=title+' · Elah';q.value=title;
+}
+r.onclick=e=>{const g=e.target.closest('[data-go]');if(g){show(g.dataset.go);scrollTo(0,0)}};
+f.onsubmit=e=>{e.preventDefault();show(q.value)};
+document.getElementById('home').onclick=()=>show(HOME);
+fetch('kjv.json').then(x=>x.json()).then(d=>{bible=d;show(q.value)}).catch(()=>{r.innerHTML='<p>Could not load the text. Reload to try again.</p>'});
 </script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 import SwiftUI
 #if os(iOS)
-import SafariServices
 #endif
 
 @main
@@ -77,8 +76,6 @@ struct ReaderView: View {
     @AppStorage("book") private var book = Place.home.book
     @AppStorage("chapter") private var chapter = Place.home.chapter
     @AppStorage("textSize") private var textSize = 19.0
-    @State private var showNIV = false
-    @Environment(\.openURL) private var openURL
     @State private var picking = false
     @State private var reading = false
     @AppStorage("serif") private var serif = false
@@ -95,7 +92,6 @@ struct ReaderView: View {
             .toolbar { toolbar }
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showNIV) { SafariView(url: bible.gatewayURL(place, .niv)).ignoresSafeArea() }
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
@@ -181,10 +177,6 @@ struct ReaderView: View {
             .accessibilityLabel("Choose book and chapter, now \(bible.title(place))")
         }
         ToolbarItemGroup(placement: .primaryAction) {
-            Menu {
-                Button("King James Version", systemImage: "checkmark") {}
-                Button("New International Version (BibleGateway)") { openNIV() }
-            } label: { Text("KJV").font(.subheadline.weight(.semibold)) }
             Button { speaker.toggle(bible.verses(place)) } label: {
                 Label(speaker.playing ? "Pause" : "Listen", systemImage: speaker.playing ? "pause.fill" : "headphones")
             }
@@ -194,15 +186,6 @@ struct ReaderView: View {
     }
 
     private func go(_ p: Place) { speaker.stop(); book = p.book; chapter = p.chapter }
-
-    /// The NIV is licensed by Biblica, so it opens BibleGateway's own page rather than living in the app.
-    private func openNIV() {
-        #if os(iOS)
-        showNIV = true
-        #else
-        openURL(bible.gatewayURL(place, .niv))
-        #endif
-    }
 }
 
 struct BookPicker: View {
@@ -262,10 +245,3 @@ struct BookPicker: View {
     }
 }
 
-#if os(iOS)
-struct SafariView: UIViewControllerRepresentable {
-    let url: URL
-    func makeUIViewController(context: Context) -> SFSafariViewController { SFSafariViewController(url: url) }
-    func updateUIViewController(_ vc: SFSafariViewController, context: Context) {}
-}
-#endif

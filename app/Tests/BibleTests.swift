@@ -46,10 +46,6 @@ final class BibleTests: XCTestCase {
         XCTAssertNil(bible.previous(Place(book: 0, chapter: 1)))
         XCTAssertNil(bible.next(Place(book: 65, chapter: 22)))
     }
-
-    func testGatewayURLEncodesReference() {
-        XCTAssertEqual(bible.gatewayURL(.home, .niv).absoluteString, "https://www.biblegateway.com/passage/?search=1%20Samuel%2017&version=NIV")
-    }
 }
 
 final class MarksTests: XCTestCase {
