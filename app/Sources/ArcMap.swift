@@ -89,8 +89,8 @@ private struct Layout {
 
 /// Every arc, drawn once, bucketed by colour and weight so it is a few dozen strokes rather than seven thousand.
 private struct ArcField: View, Equatable {
-    let dark: Bool, dimmed: Bool
-    static func == (l: Self, r: Self) -> Bool { l.dark == r.dark && l.dimmed == r.dimmed }
+    let dark: Bool
+    static func == (l: Self, r: Self) -> Bool { l.dark == r.dark }
     var body: some View {
         Canvas { ctx, size in
             let map = ArcMap.shared, L = Layout(size: size, count: map.count), buckets = 24, maxW = Double(map.maxWeight)
@@ -105,7 +105,7 @@ private struct ArcField: View, Equatable {
             }
             for c in 0..<buckets {
                 let colour: Color = Theme.arc((Double(c) + 0.5) / Double(buckets), dark: dark)
-                let dim: Double = dimmed ? 0.35 : 1
+                let dim: Double = 0.35   // dimmed, so the selected chapter's own arcs stand out on top
                 for w in 0..<3 {
                     let alpha: Double = (0.28 + 0.24 * Double(w)) * dim
                     ctx.stroke(paths[c][w], with: GraphicsContext.Shading.color(colour.opacity(alpha)), lineWidth: 0.6)
@@ -113,7 +113,7 @@ private struct ArcField: View, Equatable {
             }
             // the chapters: one bar each, hanging below the baseline by verse count, coloured by place in the canon
             let maxV: CGFloat = CGFloat(map.verses.max() ?? 1)
-            let barAlpha: Double = dimmed ? 0.45 : 0.85
+            let barAlpha: Double = 0.45
             let barWidth: CGFloat = max(0.6, L.step * 0.8)
             for (i, v) in map.verses.enumerated() {
                 let x: CGFloat = L.pad + CGFloat(i) * L.step
@@ -130,7 +130,7 @@ struct ArcMapView: View {
     let open: (Place) -> Void
     @AppStorage("mapChapter") private var selected = -1   // -1 until chosen: start on David and Goliath
     @Environment(\.colorScheme) private var scheme
-    private let map = ArcMap.shared
+    private var map: ArcMap { ArcMap.shared }   // decoded the first time the Map is shown, not at launch
     private let bible = Bible.shared
 
     private var chapter: Int { selected < 0 ? map.index(.home) : min(selected, map.count - 1) }
@@ -162,7 +162,7 @@ struct ArcMapView: View {
         GeometryReader { geo in
             let L = Layout(size: geo.size, count: map.count)
             ZStack {
-                ArcField(dark: dark, dimmed: true).equatable()
+                ArcField(dark: dark).equatable()
                 Canvas { ctx, size in
                     let L = Layout(size: size, count: map.count)
                     for arc in map.arcs(touching: chapter).reversed() {
@@ -194,7 +194,7 @@ struct ArcMapView: View {
 
     private struct Landmark { let book: Int; let name: String }
     private static let landmarks: [Landmark] = [Landmark(book: 0, name: "Genesis"), Landmark(book: 18, name: "Psalms"), Landmark(book: 22, name: "Isaiah"),
-                                                Landmark(book: 39, name: "Matthew"), Landmark(book: 44, name: "Romans"), Landmark(book: 65, name: "Rev.")]
+                                                Landmark(book: 39, name: "Matthew"), Landmark(book: 65, name: "Rev.")]
 
     /// Where the books fall along the bottom.
     private var guide: some View {

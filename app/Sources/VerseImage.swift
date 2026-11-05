@@ -1,13 +1,13 @@
 import SwiftUI
 
-/// The square card a verse is shared as: white serif on the icon's blue, the reference under it.
+/// The square card a verse is shared as: white serif on the icon's navy under its arcs, the reference under it.
 struct VerseCard: View {
     let text: String
     let cite: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
-            ArcMark(color: .white.opacity(0.9)).frame(width: 96, height: 96)
+            ArcMark().frame(width: 120, height: 120)
             Text(text)
                 .font(.system(size: 64, weight: .regular, design: .serif))
                 .lineSpacing(14)
@@ -18,7 +18,7 @@ struct VerseCard: View {
         .foregroundStyle(.white)
         .padding(96)
         .frame(width: 1080, height: 1080)
-        .background(LinearGradient(colors: [Color(hex: 0x4f8df0), Color(hex: 0x1745a8)], startPoint: .top, endPoint: .bottom))
+        .background(Theme.iconTile)
     }
 
     @MainActor func image() -> Image? {

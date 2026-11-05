@@ -21,17 +21,11 @@ struct RootView: View {
                 .tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
             ReaderView()
                 .tabItem { Label("Bible", systemImage: "book") }.tag("bible")
-            ArcMapView { p in
-                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
-            }
+            ArcMapView(open: open)
                 .tabItem { Label("Map", systemImage: "rainbow") }.tag("map")
-            SearchView(inTab: true) { p in
-                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
-            }
+            SearchView(inTab: true, open: open)
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }.tag("search")
-            SavedView { p in
-                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
-            }
+            SavedView(open: open)
                 .tabItem { Label("Saved", systemImage: "bookmark") }.tag("saved")
         }
         .environmentObject(marks)
@@ -40,6 +34,11 @@ struct RootView: View {
         .overlay { if splashing { Splash { splashing = false } } }
     }
     @State private var splashing = true
+
+    /// Map, Search and Saved open a chapter the same way: set it, then show the Bible tab. The reader stops listening on the change.
+    private func open(_ p: Place) {
+        UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
+    }
 }
 
 /// The icon's arcs draw themselves, the tile fills in under them, then it opens out of the way. About a second, once per launch.
