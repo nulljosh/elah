@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80" height="80" alt="Elah icon">
 
-![version](https://img.shields.io/badge/version-1.3.0-1745a8) ![license](https://img.shields.io/badge/license-MIT-1745a8)
+![version](https://img.shields.io/badge/version-1.3.0-1745a8) ![license](https://img.shields.io/badge/license-Apache_2.0-1745a8)
 
 Read the King James Bible on your iPhone, iPad and Mac. It opens on David and Goliath, in the valley of Elah.
 

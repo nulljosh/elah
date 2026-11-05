@@ -26,4 +26,4 @@ One accent, a deep royal blue, on warm paper in light and warm graphite in dark.
 
 No accounts, no analytics, no ads, no verse-of-the-day feed, no other translations. Each is a row on the roadmap or a deliberate skip, and the page stays one file until a row earns more.
 
-MIT, 2026 Joshua Trommel.
+Apache 2.0, 2026 Joshua Trommel.
