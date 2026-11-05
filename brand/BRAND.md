@@ -12,18 +12,18 @@ One bold flat white glyph on an accent gradient tile. No text, no outline, no em
 - Reads at 29 px: the pages stay two white blocks and the ribbon stays a tick below them. Smallest size 16 px.
 
 ## Colour
-Warm paper in light, warm graphite in dark, the same neutrals as Hermes. One accent, flat surfaces, no gradients except the icon tile, no shadows.
+White in light, neutral near-black in dark, cool greys between. No beige, sand or warm paper, ever. One accent, flat surfaces, no gradients except the icon tile, no shadows.
 
 | Role | Light | Dark |
 |---|---|---|
 | Accent (actions, links, focus) | `#1745a8` | `#6ea8ff` |
 | Button fill in dark | | `#2f66d0` |
 | Icon tile | `#4f8df0` to `#1745a8` | same |
-| Background | `#faf8f4` | `#171614` |
-| Surface (controls, hover) | `#f1ede6` | `#211f1c` |
-| Line | `#e3ddd3` | `#33302b` |
-| Text | `#1f1d1a` | `#f3efe8` |
-| Secondary text | `#6b655c` | `#9a948a` |
+| Background | `#ffffff` | `#0f1012` |
+| Surface (controls, hover) | `#f3f4f6` | `#1a1b1e` |
+| Line | `#e3e5e9` | `#2c2e33` |
+| Text | `#16181c` | `#f2f3f5` |
+| Secondary text | `#5d636c` | `#9aa0a9` |
 
 The accent is a deep royal blue. It is for the Go button, focus rings and the icon, nowhere else. Never brown, beige, purple or teal.
 

@@ -1,12 +1,12 @@
 import SwiftUI
 
-/// Mirrors brand/tokens.css. One accent, warm neutrals, 8 point grid.
+/// Mirrors brand/tokens.css. One accent, cool neutrals, 8 point grid.
 enum Theme {
     static let accent = Color(light: 0x1745a8, dark: 0x6ea8ff)
     /// Filled buttons: white text stays readable in dark mode (5.4:1 on #2f66d0).
     static let button = Color(light: 0x1745a8, dark: 0x2f66d0)
-    static let surface = Color(light: 0xf1ede6, dark: 0x211f1c)
-    static let secondary = Color(light: 0x6b655c, dark: 0x9a948a)
+    static let surface = Color(light: 0xf3f4f6, dark: 0x1a1b1e)
+    static let secondary = Color(light: 0x5d636c, dark: 0x9aa0a9)
     static let control: CGFloat = 48
     /// Elah Sans (Inter, OFL, quotes drawn as smooth stones), scaling with Dynamic Type.
     static func sans(_ size: CGFloat, _ weight: Font.Weight = .regular, relativeTo style: Font.TextStyle = .body) -> Font {

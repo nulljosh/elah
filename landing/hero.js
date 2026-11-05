@@ -10,11 +10,13 @@
   head.appendChild(el('b', '', 'Chapter 17'));
   head.appendChild(el('span', '', 'King James Version'));
   var body = wall.appendChild(el('div', 'ep-txt'));
+  if (!still) wall.classList.add('js-ink');
   var spans = V.map(function (v, i) {
     var s = el('span');
     if (i) s.appendChild(el('sup', '', String(i + 1)));
     else { s.className = 'ep-first'; s.appendChild(el('em', 'ep-cap', v[0])); v = v.slice(1); }
     s.appendChild(document.createTextNode(v + ' '));
+    s.style.setProperty('--i', i);
     return body.appendChild(s);
   });
   if (still) return;
@@ -24,24 +26,25 @@
     return r && r.left >= w.left && r.right <= w.right && r.top >= w.top && r.bottom <= w.bottom - 40;
   };
   var i = 0, on = null;
-  (function step() {
+  setTimeout(function step() {
     if (on) on.classList.remove('on');
     for (var tries = 0; tries < V.length; tries++) { var s = spans[i]; i = (i + 1) % V.length; if (visible(s)) { on = s; break; } }
     if (on) on.classList.add('on');
     setTimeout(step, on ? Math.min(6000, 1600 + on.textContent.length * 24) : 2000);
-  })();
+  }, 2200);
 })();
 
-// Hero parallax: the page drifts at 0.45, the copy lifts at 0.2 and fades. Off under reduced motion.
+// Hero parallax: the page drifts at 0.45, tilts back and recedes (--p, 0 to 1 across the hero); the copy lifts at 0.2
+// and fades. Off under reduced motion.
 (function () {
-  var bg = document.querySelector('.hero-bg'), copy = document.querySelector('.hero-copy');
+  var bg = document.getElementById('ewall'), copy = document.querySelector('.hero-copy');
   if (!bg || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var t = 0;
   addEventListener('scroll', function () {
     if (t) return;
     t = requestAnimationFrame(function () {
       t = 0; var y = scrollY, h = innerHeight; if (y > h * 1.2) return;
-      bg.style.setProperty('--py', (y * .45) + 'px');
+      bg.style.setProperty('--py', (y * .45) + 'px'); bg.style.setProperty('--p', Math.min(1, y / h).toFixed(4));
       copy.style.transform = 'translate3d(0,' + (y * .2) + 'px,0)'; copy.style.opacity = Math.max(0, 1 - y / (h * .7));
     });
   }, { passive: true });
