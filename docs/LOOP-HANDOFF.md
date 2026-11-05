@@ -11,6 +11,12 @@ One loop takes Elah, the King James Bible app for iPhone, iPad and Mac, up the v
 - The NIV was cut on 2026-10-31. Nine public domain Bibles are bundled offline as real text (KJV, BSB, ASV, New Heart, Young's, Darby, Webster, Basic English, Geneva), picked from a version picker in the top bar. The web reader shows the same text, and the landing says nine Bibles.
 - App Privacy is published as Data Not Collected. Age rating 4+, Books and Reference, free, every territory but China.
 
+## App Review (read 2026-11-05 with asc web review show)
+
+- iOS 2.1.0 and Mac 1.3.0 were both rejected on 2026-11-03 under **4.3(a) Design: Spam**: Apple says the binary, metadata or concept matches other apps with only minor differences. Extended review is flagged.
+- Joshua replied on the iOS thread on 2026-11-04 asking which apps it looks like. Apple hasn't answered yet.
+- The fix is to make Elah plainly not another generic Bible reader. Lead the listing, screenshots and first screen with what only Elah does (opens on David and Goliath, cross-reference arcs, nine offline Bibles, no account), and don't resubmit unchanged.
+
 ## Next, in order
 
 1. Watch iOS 2.1.0 and Mac 1.3.0 in review. If either is rejected, read the reason with `asc web review show` and answer it on Joshua's yes; never resubmit unchanged. The old 1.3.0 iOS rejection was cancelled, so its reason is moot unless it comes back.
