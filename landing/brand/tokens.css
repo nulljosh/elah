@@ -1,13 +1,9 @@
 /* Elah design tokens. One source for the landing and the docs; app/Sources/Theme.swift mirrors these.
    Shared system: 8 point grid, one radius set, 48 point capsule controls. The accent is the only colour Elah owns. */
-@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Elah Sans"; src: url("fonts/ElahSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
   /* colour */
-  --accent: #1745a8;          /* actions, links, focus ring; 8:1 on paper */
+  --accent: #1745a8;          /* actions, links, focus ring; 8:1 on white */
   --btn: #1745a8;             /* solid buttons, white label */
   --frame: #1745a8;
   --band: #1745a8;            /* full-bleed blue sections */
@@ -18,15 +14,23 @@
   --accent-deep: #1745a8;     /* icon gradient bottom */
   --accent-ring: color-mix(in srgb, #1745a8 30%, transparent);
   --ring: var(--accent-ring);
-  --bg: #faf8f4;              /* warm paper */
-  --surface: #f1ede6;
-  --line: #e3ddd3;
-  --text: #1f1d1a;
-  --text2: #6b655c;
-  --sub: #6b655c;
+  --bg: #ffffff;              /* white, no beige */
+  --surface: #f3f4f6;
+  --line: #e3e5e9;
+  --text: #16181c;
+  --text2: #5d636c;
+  --sub: #5d636c;
 
-  /* type: Elah Sans (Inter, OFL, quotes drawn as smooth stones), system font while it loads */
-  --font: "Elah Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* the arc palette: the footer's cross-references, coloured by span, gold for neighbours to Elah blue across the Bible */
+  --arc-1: #d99a22;   /* ochre, the shortest arcs */
+  --arc-2: #d0612f;   /* terracotta */
+  --arc-3: #b8324f;   /* crimson */
+  --arc-4: #6a3fa8;   /* violet */
+  --arc-5: #1745a8;   /* Elah blue, the arcs that span the Bible */
+  --foot: #f3f4f6;    /* footer surface, cool grey */
+
+  /* type: the system font, bold (Elah Sans retired 2026-11-01); verses in the system serif */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --display: var(--font);
   --serif: ui-serif, "New York", Georgia, serif;   /* the verses themselves */
   --size-display: 64px;       /* hero: 64 line */
@@ -65,11 +69,17 @@
     --band-sub: #c9d6fb;
     --band-art: #7d9df0;
     --accent-ring: color-mix(in srgb, #6ea8ff 30%, transparent);
-    --bg: #171614;            /* warm graphite */
-    --surface: #211f1c;
-    --line: #33302b;
-    --text: #f3efe8;
-    --text2: #9a948a;
-    --sub: #9a948a;
+    --bg: #0f1012;            /* neutral near-black */
+    --surface: #1a1b1e;
+    --line: #2c2e33;
+    --text: #f2f3f5;
+    --text2: #9aa0a9;
+    --sub: #9aa0a9;
+    --arc-1: #f2c14e;
+    --arc-2: #f28a52;
+    --arc-3: #ef6b86;
+    --arc-4: #a98af2;
+    --arc-5: #6ea8ff;
+    --foot: #17181b;
   }
 }

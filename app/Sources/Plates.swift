@@ -26,7 +26,17 @@ struct Plate: Identifiable, Hashable {
 
     static func at(_ p: Place) -> Plate? { all.first { $0.place == p } }
 
+    private static var cache: [String: Image] = [:]
+
+    /// Decoded once, then kept: the reader and Today ask for the same plates again and again.
     var image: Image? {
+        if let hit = Self.cache[id] { return hit }
+        let made = load()
+        Self.cache[id] = made
+        return made
+    }
+
+    private func load() -> Image? {
         guard let url = Bundle.main.url(forResource: "plate-\(id)", withExtension: "png") else { return nil }
         #if os(iOS)
         return UIImage(contentsOfFile: url.path).map { Image(uiImage: $0) }

@@ -28,3 +28,8 @@ extension Color {
         #endif
     }
 }
+
+extension Theme {
+    /// The icon tile, night navy, mirrors brand/icon-tile.svg.
+    static let iconTile = LinearGradient(colors: [Color(red: 0.078, green: 0.145, blue: 0.310), Color(red: 0.027, green: 0.059, blue: 0.141)], startPoint: .top, endPoint: .bottom)
+}

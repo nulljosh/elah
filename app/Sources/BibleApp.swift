@@ -42,7 +42,7 @@ struct RootView: View {
     @State private var splashing = true
 }
 
-/// The book draws itself, fills, then opens out of the way. About a second, once per launch.
+/// The icon's arcs draw themselves, the tile fills in under them, then it opens out of the way. About a second, once per launch.
 struct Splash: View {
     let done: () -> Void
     @State private var drawn: CGFloat = 0
@@ -54,10 +54,10 @@ struct Splash: View {
         ZStack {
             Rectangle().fill(.background).ignoresSafeArea()
             ZStack {
-                BookMark().trim(from: 0, to: drawn).stroke(Theme.accent, style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-                BookMark().fill(Theme.accent).opacity(filled ? 1 : 0)
+                RoundedRectangle(cornerRadius: 27, style: .continuous).fill(Theme.iconTile).opacity(filled ? 1 : 0)
+                ArcMark(drawn: drawn).padding(10)
             }
-            .frame(width: 96, height: 96)
+            .frame(width: 120, height: 120)
             .scaleEffect(leaving ? 1.6 : 1)
         }
         .opacity(leaving ? 0 : 1)
@@ -101,6 +101,7 @@ struct ReaderView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .sheet(isPresented: $picking) { BookPicker(place: place) { go($0) } }
+            .onChange(of: place) { speaker.stop() }   // Map, Search, Saved and Today change the chapter too
             .onAppear { picking = UserDefaults.standard.bool(forKey: "showBooks")}
             .task { if UserDefaults.standard.bool(forKey: "showPlayer") { speaker.preview(text, at: 12) }
                 if UserDefaults.standard.bool(forKey: "showReading") { try? await Task.sleep(for: .seconds(1)); reading = true } }

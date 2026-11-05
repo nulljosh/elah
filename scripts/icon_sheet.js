@@ -4,8 +4,9 @@ const L = ['#d99a22','#d0612f','#b8324f','#6a3fa8','#1745a8'], D = ['#f2c14e','#
 // arcs: [x1,x2] on a 1024 grid, coloured by span (short gold to long blue)
 function arcs(list, base, w, pal, k=1){
   const sorted=[...list].sort((a,b)=>(b[1]-b[0])-(a[1]-a[0])); // longest first, so short ones sit on top
-  const spans=list.map(a=>a[1]-a[0]), mn=Math.min(...spans), mx=Math.max(...spans);
-  return sorted.map(([a,b])=>{const r=(b-a)/2, t=(b-a-mn)/(mx-mn||1), c=pal[Math.round(t*4)];
+  // colour by rank of span, so five arcs take the five palette stops
+  const n=sorted.length;
+  return sorted.map(([a,b],i)=>{const r=(b-a)/2, c=pal[Math.round((n-1-i)/(n-1||1)*4)];
     return `<path d="M${a} ${base} A${r} ${r*k} 0 0 1 ${b} ${base}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`}).join('');
 }
 const V = JSON.parse(fs.readFileSync(process.argv[2]||'variants.json'));

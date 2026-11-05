@@ -1,15 +1,15 @@
 # Elah brand kit and design system
 
-An open book with a ribbon marker: scripture, one tap from the passage you were on.
+Five cross references on one line, coloured by reach: the Bible's own map, the thing only Elah draws.
 
 ## The mark
-One bold flat white glyph on an accent gradient tile. No text, no outline, no emblem.
+Five round-capped half circles on a night navy tile, longest blue to shortest gold, the dark arc palette. No text, no outline, no emblem. `scripts/gen_icon.js` draws every copy.
 
 - `../Bible.icon` (bundle name kept from the first name) is the source of truth (Icon Composer). Light and dark fills are set in it.
 - `../icon.svg` is the flat copy for READMEs (shown at 80 px). `icon-1024.png` is the App Store icon, no alpha.
-- `mark.svg` is the glyph alone in `currentColor` for your own background.
-- Two pages with a gap for the spine and a notched ribbon tail. Clear space equal to the width of the ribbon.
-- Reads at 29 px: the pages stay two white blocks and the ribbon stays a tick below them. Smallest size 16 px.
+- `mark.svg` is the arcs alone, for a dark background.
+- Spans on the 1024 grid, base 696, stroke 58: 144 to 880, 144 to 624, 400 to 880, 272 to 528, 656 to 816. `ArcMark` in VerseImage.swift draws the same in the app (splash, share card).
+- Reads at 28 px as a nest of coloured arches. Smallest size 16 px.
 
 ## Colour
 White in light, neutral near-black in dark, cool greys between. No beige, sand or warm paper, ever. One accent, flat surfaces, no gradients except the icon tile, no shadows.
@@ -18,14 +18,14 @@ White in light, neutral near-black in dark, cool greys between. No beige, sand o
 |---|---|---|
 | Accent (actions, links, focus) | `#1745a8` | `#6ea8ff` |
 | Button fill in dark | | `#2f66d0` |
-| Icon tile | `#4f8df0` to `#1745a8` | same |
+| Icon tile | `#14254f` to `#070f24` | same |
 | Background | `#ffffff` | `#0f1012` |
 | Surface (controls, hover) | `#f3f4f6` | `#1a1b1e` |
 | Line | `#e3e5e9` | `#2c2e33` |
 | Text | `#16181c` | `#f2f3f5` |
 | Secondary text | `#5d636c` | `#9aa0a9` |
 
-The accent is a deep royal blue. It is for the Go button, focus rings and the icon, nowhere else. Never brown, beige, purple or teal.
+The accent is a deep royal blue. It is for the Go button and focus rings, nowhere else. Never brown, beige, purple or teal.
 
 ## Type
 Elah Sans, the house face for this app: Inter under the SIL Open Font License, proportionally spaced in the spirit of San Francisco and Helvetica, renamed and pinned by `scripts/gen_font.py`, with the curly quotes and apostrophe redrawn as the smooth stones David took from the brook. Four weights, 400 to 700, in `fonts/`, shipped in the app bundle and on the landing. The fallback is the system stack. Verses can switch to the system serif in Reading settings. Scale: display 64/64 bold, title 34/40 bold, headline 20/28 semibold, body 17/24, footnote 13/16.

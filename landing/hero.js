@@ -23,11 +23,16 @@
   // only light verses the reader can see: inside the page, not under the copy's clear centre
   var visible = function (s) {
     var w = wall.getBoundingClientRect(), r = s.getClientRects()[0];
-    return r && r.left >= w.left && r.right <= w.right && r.top >= w.top && r.bottom <= w.bottom - 40;
+    if (!r || r.left < w.left || r.right > w.right || r.top < w.top || r.bottom > w.bottom - 40) return false;
+    // the clear centre is an ellipse around the headline, as wide as it and as tall as the copy
+    var c = (document.querySelector('.hero-copy h1') || wall).getBoundingClientRect(), b = (document.querySelector('.hero-copy') || wall).getBoundingClientRect();
+    var dx = ((r.left + r.right) / 2 - (c.left + c.right) / 2) / (c.width * 0.65 + 40), dy = ((r.top + r.bottom) / 2 - (b.top + b.bottom) / 2) / (b.height * 0.6 + 20);
+    return dx * dx + dy * dy > 1;
   };
   var i = 0, on = null;
   setTimeout(function step() {
     if (on) on.classList.remove('on');
+    on = null;
     for (var tries = 0; tries < V.length; tries++) { var s = spans[i]; i = (i + 1) % V.length; if (visible(s)) { on = s; break; } }
     if (on) on.classList.add('on');
     setTimeout(step, on ? Math.min(6000, 1600 + on.textContent.length * 24) : 2000);

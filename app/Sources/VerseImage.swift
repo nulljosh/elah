@@ -7,7 +7,7 @@ struct VerseCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
-            BookMark().fill(.white.opacity(0.9)).frame(width: 72, height: 72)
+            ArcMark(color: .white.opacity(0.9)).frame(width: 96, height: 96)
             Text(text)
                 .font(.system(size: 64, weight: .regular, design: .serif))
                 .lineSpacing(14)
@@ -60,18 +60,41 @@ struct ShareImageSheet: View {
     }
 }
 
-/// The app icon's glyph, an open book with a ribbon, from brand/mark.svg on its 1024 grid.
-struct BookMark: Shape {
+/// The app icon's mark: five cross references on one line, coloured by reach, from brand/mark.svg on its 1024 grid.
+struct ArcMark: View {
+    /// Each arc is a span between two places on the line, longest first. Keep in step with brand/mark.svg.
+    static let spans: [(CGFloat, CGFloat)] = [(144, 880), (144, 624), (400, 880), (272, 528), (656, 816)]
+    static let base: CGFloat = 696, weight: CGFloat = 58
+    var drawn: CGFloat = 1
+    var color: Color? = nil
+
+    var body: some View {
+        GeometryReader { geo in
+            let k: CGFloat = min(geo.size.width, geo.size.height) / 824
+            ZStack {
+                ForEach(0..<Self.spans.count, id: \.self) { i in
+                    let tint: Color = color ?? Theme.arc(1 - Double(i) / 4, dark: true)
+                    MarkArc(a: Self.spans[i].0, b: Self.spans[i].1).trim(from: 0, to: drawn)
+                        .stroke(tint, style: StrokeStyle(lineWidth: Self.weight * k, lineCap: .round))
+                }
+            }
+        }
+        .aspectRatio(1, contentMode: .fit)
+    }
+}
+
+/// One half circle of the mark, on the 1024 grid cropped to the square around the mark.
+private struct MarkArc: Shape {
+    let a: CGFloat, b: CGFloat
     func path(in rect: CGRect) -> Path {
-        let k = min(rect.width, rect.height) / 640, ox = rect.minX - 192 * k, oy = rect.minY - 220 * k
-        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: ox + x * k, y: oy + y * k) }
+        let k: CGFloat = min(rect.width, rect.height) / 824
+        let r: CGFloat = (b - a) / 2, cx: CGFloat = (a + b) / 2
         var path = Path()
-        path.move(to: p(500, 316)); path.addCurve(to: p(232, 282), control1: p(430, 262), control2: p(330, 252))
-        path.addLine(to: p(232, 692)); path.addCurve(to: p(500, 726), control1: p(330, 664), control2: p(430, 674)); path.closeSubpath()
-        path.move(to: p(524, 316)); path.addCurve(to: p(792, 282), control1: p(594, 262), control2: p(694, 252))
-        path.addLine(to: p(792, 692)); path.addCurve(to: p(524, 726), control1: p(694, 664), control2: p(594, 674)); path.closeSubpath()
-        path.move(to: p(486, 742)); path.addLine(to: p(538, 742)); path.addLine(to: p(538, 826))
-        path.addLine(to: p(512, 800)); path.addLine(to: p(486, 826)); path.closeSubpath()
+        for n in 0...48 {
+            let t: CGFloat = .pi + CGFloat(n) / 48 * .pi
+            let p = CGPoint(x: rect.midX + (cx + r * cos(t) - 512) * k, y: rect.midY + (ArcMark.base + r * sin(t) - 512) * k)
+            if n == 0 { path.move(to: p) } else { path.addLine(to: p) }
+        }
         return path
     }
 }

@@ -150,7 +150,7 @@ struct ArcMapView: View {
                         .font(Theme.sans(15)).foregroundStyle(Theme.secondary)
                         .padding(.horizontal, Theme.page).padding(.top, 8)
                     chart.frame(height: 280).padding(.top, 16)
-                    guide.padding(.horizontal, 8)
+                    guide
                     detail.padding(.horizontal, Theme.page).padding(.top, 24)
                 }
                 .frame(maxWidth: 1100)
@@ -178,7 +178,11 @@ struct ArcMapView: View {
                 }
             }
             .contentShape(Rectangle())
-            .gesture(DragGesture(minimumDistance: 0).onChanged { selected = L.chapter(at: $0.location.x) })
+            .onTapGesture { p in selected = L.chapter(at: p.x) }
+            .simultaneousGesture(DragGesture(minimumDistance: 12).onChanged { d in
+                // sideways drags scrub the chapters, vertical ones are left to the scroll view
+                if abs(d.translation.width) > abs(d.translation.height) { selected = L.chapter(at: d.location.x) }
+            })
             .accessibilityElement()
             .accessibilityLabel("Cross reference map")
             .accessibilityValue("\(bible.title(map.place(chapter))), linked to \(map.links(chapter).count) chapters")
@@ -198,7 +202,7 @@ struct ArcMapView: View {
             let L = Layout(size: CGSize(width: geo.size.width, height: 1), count: map.count)
             ForEach(Self.landmarks, id: \.book) { mark in
                 Text(mark.name).font(Theme.sans(11, .semibold, relativeTo: .caption2)).foregroundStyle(Theme.secondary)
-                    .fixedSize().position(x: L.x(map.index(Place(book: mark.book, chapter: 1))) + 16, y: 8)
+                    .fixedSize().position(x: min(max(L.x(map.index(Place(book: mark.book, chapter: 1))), 28), geo.size.width - 18), y: 8)
             }
         }
         .frame(height: 16)
@@ -211,14 +215,14 @@ struct ArcMapView: View {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bible.title(here)).font(Theme.sans(28, .bold, relativeTo: .title))
-                    Text(links.isEmpty ? "No strong links" : "Linked to \(links.count) chapters").font(Theme.sans(15)).foregroundStyle(Theme.secondary)
+                    Text(links.isEmpty ? "No strong links" : "Linked to \(links.count) chapter\(links.count == 1 ? "" : "s")").font(Theme.sans(15)).foregroundStyle(Theme.secondary)
                 }
                 Spacer()
                 Button { open(here) } label: { Text("Read").font(Theme.sans(15, .semibold)).padding(.horizontal, 20).frame(height: 40) }
                     .buttonStyle(.plain).foregroundStyle(.white).background(Theme.button, in: Capsule())
             }
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 8)], spacing: 8) {
-                ForEach(Array(links.prefix(24)), id: \.chapter) { link in
+                ForEach(links, id: \.chapter) { link in
                     let span: Int = abs(link.chapter - chapter)
                     Button { open(map.place(link.chapter)) } label: {
                         HStack(spacing: 8) {

@@ -139,7 +139,7 @@ final class ScopeTests: XCTestCase {
         XCTAssertEqual(Plate.at(.home)?.id, "goliath", "David and Goliath opens on its engraving")
         for plate in Plate.all {
             XCTAssertNotNil(plate.image, plate.id)
-            XCTAssertFalse(bible.verses(plate.place).isEmpty, plate.id)
+            XCTAssertFalse(Bible.shared.verses(plate.place).isEmpty, plate.id)
         }
     }
 }

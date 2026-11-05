@@ -3,8 +3,8 @@
     {
       "value": {
         "linear-gradient": [
-          "extended-srgb:0.310,0.553,0.941,1.0",
-          "extended-srgb:0.090,0.271,0.659,1.0"
+          "extended-srgb:0.078,0.145,0.310,1.0",
+          "extended-srgb:0.027,0.059,0.141,1.0"
         ]
       }
     },
@@ -12,8 +12,8 @@
       "appearance": "dark",
       "value": {
         "linear-gradient": [
-          "extended-srgb:0.025,0.076,0.184,1.0",
-          "extended-srgb:0.011,0.032,0.079,1.0"
+          "extended-srgb:0.040,0.078,0.180,1.0",
+          "extended-srgb:0.012,0.027,0.070,1.0"
         ]
       }
     }
@@ -24,11 +24,11 @@
         {
           "glass": false,
           "image-name": "glyph.png",
-          "name": "Bible"
+          "name": "Arcs"
         }
       ],
       "lighting": "individual",
-      "name": "Bible",
+      "name": "Arcs",
       "shadow": {
         "kind": "neutral",
         "opacity": 0.3

@@ -24,7 +24,7 @@
     var art = layer(w, h), a = art.getContext('2d');
     var maxW = data.arcs[0][2], k = base * 0.96 / ((w - 2 * pad) / 2);  // one ratio for every arc, so the widest just fits
     // longest first, so the short warm arcs sit on top of the long blue ones
-    data.arcs.slice().sort(function (p, q) { return (q[1] - q[0]) - (p[1] - p[0]); }).forEach(function (r) {
+    (data.byReach = data.byReach || data.arcs.slice().sort(function (p, q) { return (q[1] - q[0]) - (p[1] - p[0]); })).forEach(function (r) {
       var x0 = pad + (r[0] + 0.5) * step, x1 = pad + (r[1] + 0.5) * step, rx = (x1 - x0) / 2;
       a.strokeStyle = ramp(stops, Math.pow((r[1] - r[0]) / (n - 1), 0.45));
       a.globalAlpha = 0.35 + 0.65 * Math.sqrt(r[2] / maxW);
