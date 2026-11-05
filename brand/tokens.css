@@ -21,6 +21,14 @@
   --text2: #6b655c;
   --sub: #6b655c;
 
+  /* the arc palette: the footer's cross-references, coloured by span, gold for neighbours to Elah blue across the Bible */
+  --arc-1: #d99a22;   /* ochre, the shortest arcs */
+  --arc-2: #d0612f;   /* terracotta */
+  --arc-3: #b8324f;   /* crimson */
+  --arc-4: #6a3fa8;   /* violet */
+  --arc-5: #1745a8;   /* Elah blue, the arcs that span the Bible */
+  --foot: #f3ecdf;    /* footer surface, warm sand */
+
   /* type: the system font, bold (Elah Sans retired 2026-11-01); verses in the system serif */
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --display: var(--font);
@@ -67,5 +75,11 @@
     --text: #f3efe8;
     --text2: #9a948a;
     --sub: #9a948a;
+    --arc-1: #f2c14e;
+    --arc-2: #f28a52;
+    --arc-3: #ef6b86;
+    --arc-4: #a98af2;
+    --arc-5: #6ea8ff;
+    --foot: #1f1c18;
   }
 }

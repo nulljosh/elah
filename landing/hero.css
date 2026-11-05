@@ -1,20 +1,26 @@
-/* Hero: Elah's reader behind the copy. Real KJV passages read aloud verse by verse with the reader's highlight;
-   blended into the page, parallax in hero.js. */
+/* Hero: one open page of 1 Samuel 17 behind the copy, set like a printed Bible: running head, drop cap,
+   three columns with rules, the reader's highlight walking the verses. Text and parallax in hero.js. */
 .hero { position: relative; isolation: isolate; overflow: hidden; min-height: calc(100svh - 56px); display: grid; align-items: center; padding: var(--sp-8) 0; }
 .hero-copy { position: relative; z-index: 2; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 56% 48% at 50% 50%, var(--bg) 50%, transparent 100%); }
-.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28%; z-index: 1; pointer-events: none; background: linear-gradient(transparent, var(--bg)); }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 50% 46% at 50% 50%, var(--bg) 45%, color-mix(in srgb, var(--bg) 55%, transparent) 75%, transparent 100%); }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; z-index: 1; pointer-events: none; background: linear-gradient(transparent, var(--bg)); }
 .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; transform: translate3d(0, var(--py, 0), 0); will-change: transform; }
 .hero h1 a { color: inherit; text-decoration: none; }
-.ewall { height: 100%; max-width: 1440px; margin: 0 auto; padding: var(--sp-6); display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 232px; gap: var(--sp-5); align-content: center; opacity: .75; text-align: left; }
-.ec { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 22px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
-.ec-hd { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 600; color: var(--sub); }
-.ec-hd b { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
-.ec-txt { font-family: var(--serif); font-size: 17px; line-height: 26px; color: var(--text); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; }
-.ec-txt sup { font-family: var(--font); font-size: 10px; font-weight: 700; color: var(--accent); margin-right: 3px; }
-.ec-txt span { border-radius: 4px; transition: background .4s ease; }
-.ec-txt span.on { background: color-mix(in srgb, var(--accent) 18%, transparent); }
-@media (max-width: 900px) { .ewall { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .ewall { grid-template-columns: 1fr; padding: var(--sp-4); grid-auto-rows: 180px; align-content: start; padding-top: 24px; opacity: .55; } .hero::before { background: radial-gradient(ellipse 120% 46% at 50% 50%, var(--bg) 62%, transparent 100%); } }
-@media (max-width: 600px) { .nav { grid-template-columns: auto 1fr; } .nav-brand { grid-column: 1; } .nav-end { grid-column: 2; justify-self: end; } }
-@media (prefers-reduced-motion: reduce) { .ec-txt span { transition: none; } }
+
+.ewall { position: absolute; inset: var(--sp-6) clamp(16px, 4vw, 64px) 0; max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; opacity: .62; text-align: left; overflow: hidden; }
+.ep-hd { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); padding-bottom: var(--sp-3); margin-bottom: var(--sp-5); border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); }
+.ep-hd b { font-family: var(--serif); font-size: 15px; letter-spacing: .06em; color: var(--text); }
+.ep-txt { flex: 1; min-height: 0; columns: 3; column-gap: var(--sp-7); column-rule: 1px solid var(--line); column-fill: auto; font-family: var(--serif); font-size: 18px; line-height: 30px; color: var(--text); text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.ep-txt sup { font-family: var(--font); font-size: 10px; font-weight: 700; color: var(--accent); margin: 0 2px 0 1px; }
+.ep-txt span { border-radius: 3px; transition: background .6s ease; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.ep-txt span.on { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.ep-cap { float: left; font-style: normal; font-size: 92px; line-height: 76px; font-weight: 700; color: var(--accent); margin: 4px 10px 0 0; }
+@media (max-width: 1000px) { .ep-txt { columns: 2; } }
+@media (max-width: 600px) {
+  .ep-txt { columns: 1; font-size: 16px; line-height: 26px; }
+  .ep-hd span:last-child { display: none; }
+  .ewall { opacity: .45; }
+  .hero::before { background: radial-gradient(ellipse 120% 44% at 50% 50%, var(--bg) 60%, transparent 100%); }
+  .nav { grid-template-columns: auto 1fr; } .nav-brand { grid-column: 1; } .nav-end { grid-column: 2; justify-self: end; }
+}
+@media (prefers-reduced-motion: reduce) { .ep-txt span { transition: none; } }
