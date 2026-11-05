@@ -55,6 +55,18 @@ Read from the App Store screenshots of YouVersion, Bible Gateway, Dwell, ESV, Ol
 | Apple Watch verse of the day | none | M | 5.0 |
 | NIV inside the app | all | L | blocked on a Biblica licence |
 
+## Unique (the answer to 4.3)
+
+Apple rejected iOS 2.1.0 and Mac 1.3.0 on 2026-11-03 under 4.3(a): too close to other Bible readers, ours and theirs. These are what only Elah does. Each ships as its own minor and leads the listing.
+
+| Feature | Status |
+|---|---|
+| Map tab: every cross reference as arcs (after Harrison and Römhild), drag to light a chapter, open what it reaches | 2.2 |
+| Doré engravings at the head of their chapters, and a strip of them on Today | 2.2 (nine plates; the full 241 to come) |
+| Listing rebuilt around the Map and the engravings: subtitle, description, keywords, screenshots | 2.2 |
+| All 241 Doré plates, dithered by `scripts/` from the Commons scans | next |
+| Arcs inside the reader: tap a verse's cross references to see them on the map | next |
+
 ## Version plan
 
 Each version closes rows above and refreshes both matrices. Every release ships iPhone, iPad, Mac and the web page together.
@@ -75,6 +87,7 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 1.4 cross references on any verse (top 8 by votes, OpenBible.info CC BY), animated launch splash; Mac build on the store record (done)
 - 1.5 daily verse notification: a toggle and time on Today, the next 30 verses queued as local notifications (done)
 - 2.0 reading plans (done): four plans (Gospels and Psalms in 30 days, New Testament in 90, the whole Bible in a year), the next day's chapters on Today, check a day off, progress bar. Still owed for the major: a Mobbin pass and the opus-ad film
+- 2.2 the Map and the Doré engravings, listing rebuilt around them (the 4.3 answer)
 - 3.0 Strong's numbers
 - 4.0 widgets
 - 5.0 Apple Watch

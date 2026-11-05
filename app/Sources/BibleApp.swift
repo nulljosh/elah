@@ -21,6 +21,10 @@ struct RootView: View {
                 .tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
             ReaderView()
                 .tabItem { Label("Bible", systemImage: "book") }.tag("bible")
+            ArcMapView { p in
+                UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
+            }
+                .tabItem { Label("Map", systemImage: "rainbow") }.tag("map")
             SearchView(inTab: true) { p in
                 UserDefaults.standard.set(p.book, forKey: "book"); UserDefaults.standard.set(p.chapter, forKey: "chapter"); tab = "bible"
             }
@@ -108,6 +112,7 @@ struct ReaderView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 Text(bible.title(place)).font(serif ? .system(.largeTitle, design: .serif).bold() : Theme.sans(34, .bold, relativeTo: .largeTitle)).padding(.bottom, 8)
+                if let plate = Plate.at(place) { ChapterPlate(plate: plate).padding(.bottom, 12) }
                 ForEach(Array(text.enumerated()), id: \.offset) { i, v in
                     if !v.isEmpty {
                         let ref = VerseRef(place: place, verse: i + 1)

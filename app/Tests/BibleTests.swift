@@ -125,4 +125,21 @@ final class ScopeTests: XCTestCase {
         XCTAssertEqual(phrase.first?.ref, VerseRef(place: .home, verse: 40))
         XCTAssertGreaterThan(b.search("smooth stones").count, b.search("\"five smooth stones\"").count - 1)
     }
+
+    func testArcMapCoversTheCanon() {
+        let map = ArcMap.shared
+        XCTAssertEqual(map.count, 1189, "one bar per chapter, Genesis 1 to Revelation 22")
+        XCTAssertEqual(map.arcs.count, 7000)
+        for p in [Place(book: 0, chapter: 1), .home, Place(book: 65, chapter: 22)] { XCTAssertEqual(map.place(map.index(p)), p) }
+        XCTAssertFalse(map.links(map.index(.home)).isEmpty, "1 Samuel 17 reaches other chapters")
+        XCTAssertTrue(map.arcs.allSatisfy { $0.a < $0.b && $0.b < map.count })
+    }
+
+    func testEveryPlateHasItsImageAndChapter() {
+        XCTAssertEqual(Plate.at(.home)?.id, "goliath", "David and Goliath opens on its engraving")
+        for plate in Plate.all {
+            XCTAssertNotNil(plate.image, plate.id)
+            XCTAssertFalse(bible.verses(plate.place).isEmpty, plate.id)
+        }
+    }
 }

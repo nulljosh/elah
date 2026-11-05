@@ -17,6 +17,29 @@ One loop takes Elah, the King James Bible app for iPhone, iPad and Mac, up the v
 - Joshua replied on the iOS thread on 2026-11-04 asking which apps it looks like. Apple hasn't answered yet.
 - The fix is to make Elah plainly not another generic Bible reader. Lead the listing, screenshots and first screen with what only Elah does (opens on David and Goliath, cross-reference arcs, nine offline Bibles, no account), and don't resubmit unchanged.
 
+## Ship 2.2.0 (on Joshua's Mac, Xcode 26)
+
+This Mac (Dad's, macOS 13, Xcode 15.2) can't build an App Store binary. Upstairs:
+
+```sh
+cd ~/Desktop/JoshCode/elah && git pull
+cd app && xcodegen generate && xcodebuild -scheme Bible -destination 'platform=macOS' test && cd ..
+asc workflow run upload-ios                      # archive and upload iOS 2.2.0, no submit
+# Mac: archive with MacExportOptions.plist and upload the same way
+asc metadata plan --app 6829146794 --dir metadata   # review the 2.2.0 listing diff, then the same with apply (flags: asc metadata apply --help)
+```
+
+New screenshots lead with the Map tab and a chapter with its engraving (iPhone, iPad, Mac; light). Then submit both platforms and paste the reply below on each rejection thread.
+
+### Reply to App Review (both threads)
+
+> Hello App Review,
+>
+> Thank you for the note. Version 2.2.0 makes Elah plainly its own app. It has a Map: every cross reference in the Bible drawn as one chart of arcs, Genesis to Revelation, which you drag to light up a chapter and open what it reaches. It also has Gustave Doré's 1866 engravings, set as halftone plates at the head of the chapters they illustrate. Both are the first things in the listing and the screenshots. The code, art and data are written for Elah alone and shared with no other app.
+>
+> Thank you,
+> Joshua
+
 ## Next, in order
 
 1. Watch iOS 2.1.0 and Mac 1.3.0 in review. If either is rejected, read the reason with `asc web review show` and answer it on Joshua's yes; never resubmit unchanged. The old 1.3.0 iOS rejection was cancelled, so its reason is moot unless it comes back.

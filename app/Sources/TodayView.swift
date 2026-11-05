@@ -62,6 +62,9 @@ struct TodayView: View {
                             }
                         }
                     }
+                    card("Engravings") {
+                        PlateStrip { p in book = p.book; chapter = p.chapter; read() }
+                    }
                     card("Reading plan") {
                         PlanCard { p in book = p.book; chapter = p.chapter; read() }
                     }
