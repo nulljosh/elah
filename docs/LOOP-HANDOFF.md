@@ -1,4 +1,4 @@
-# Elah loop handoff (2026-10-31, evening)
+# Elah loop handoff (2026-11-05, midday)
 
 ## What the loop is
 
@@ -47,8 +47,17 @@ New screenshots lead with the Map tab and a chapter with its engraving (iPhone, 
 3. 2.0 is built. Still owed for the major: a Mobbin pass over the rival sheets and the opus-ad film.
 4. Screen QA leftovers: search result count card, verse menu, note editor and share sheet in light and dark.
 
+## Loop state (2026-11-05)
+
+- 2.2.0 is in code and pushed: Map tab (`ArcMap.swift`, `Resources/arcs.json`), Doré plates (`Plates.swift`, `Plates/`), listing in `metadata/version/2.2.0`, tests added. It type-checks against the macOS 14 SDK (`swiftc -typecheck -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -target x86_64-apple-macos14.0 app/Sources/*.swift`), but it has **not been built or run**: Dad's Mac has Xcode 15.2 and macOS 13. Build, test and upload on Joshua's Mac (steps above).
+- A `/code-review` of v2.1.0..HEAD was running when this was written. Fix its findings, then tag `v2.2.0` and publish a GitHub release (no releases exist yet; tags go to v2.1.0).
+- Repo hygiene: no open issues, no PRs, only `main`.
+- Roadmap is mapped to 10.0. Next minors: 2.3 arcs in the reader, 2.4 Map filters and zoom, 2.5 Stories, then 3.0 "the Bible you can see".
+- QA renders: the screenshot harness is in the session scratchpad and is lost on compact. Rebuild it as an ImageRenderer CLI targeting macOS 13, stubbing `ShareImageSheet` (VerseImage.swift needs macOS 14). For the landing, use the offscreen WKWebView snapshotter: polyfill rAF and finish animations before the snapshot.
+- Still owed after 3.0: simplify README.md and CLAUDE.md, redraw architecture.svg, and cut a commercial modelled on joshuatree `docs/hardware/ad` (VO via `say -v Samantha`, cards, ffmpeg; no ImageMagick here).
+
 ## Restart prompt
 
 ```
-/loop Ship Elah 2.0.0 to the App Store on iPhone, iPad and Mac once iOS 2.1.0 and Mac 1.3.0 clear review, per docs/LOOP-HANDOFF.md. Then the Mobbin pass and the opus-ad film for the 2.0 major.
+/loop Take Elah to 3.0 per docs/LOOP-HANDOFF.md and docs/roadmap.md: fix the code-review findings, release v2.2.0 on GitHub, then one minor per tick (2.3, 2.4, 2.5) to 3.0.0, each type-checked, QA'd with screenshot renders to A+, tagged, released and the landing deployed. Then README, CLAUDE.md, architecture.svg and the commercial.
 ```

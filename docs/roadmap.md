@@ -87,15 +87,19 @@ Each version closes rows above and refreshes both matrices. Every release ships 
 - 1.4 cross references on any verse (top 8 by votes, OpenBible.info CC BY), animated launch splash; Mac build on the store record (done)
 - 1.5 daily verse notification: a toggle and time on Today, the next 30 verses queued as local notifications (done)
 - 2.0 reading plans (done): four plans (Gospels and Psalms in 30 days, New Testament in 90, the whole Bible in a year), the next day's chapters on Today, check a day off, progress bar. Still owed for the major: a Mobbin pass and the opus-ad film
-- 2.2 the Map and the Doré engravings, listing rebuilt around them (the 4.3 answer)
-- 3.0 Strong's numbers
-- 4.0 widgets
-- 5.0 Apple Watch
-- 6.0 iPad split view: text beside notes or a second chapter
-- 7.0 Shortcuts and Siri: "read 1 Samuel 17"
-- 8.0 sync highlights and notes through iCloud, no account
-- 9.0 the 27 interface languages the fleet ships
-- 10.0 NIV in the app if Biblica licenses it, otherwise a second public domain version beside the KJV (Joshua picks)
+- 2.1 nine public domain Bibles as real text, picked from the top bar: KJV, BSB, ASV, New Heart, Young's, Darby, Webster, Basic English, Geneva (done)
+- 2.2 the Map and the Doré engravings, listing rebuilt around them, the answer to 4.3 (done in code; App Store build pending)
+- 2.3 arcs in the reader: a verse's cross references open as a small map of where they land, "See on the Map" jumps to the chapter
+- 2.4 Map filters: one book's arcs only, Old or New Testament, strongest links only; pinch to zoom on iPhone and iPad, scroll to zoom on Mac
+- 2.5 Stories: the great narratives as trails through their chapters (David, Moses, Abraham, Joseph, Elijah, Daniel, Jesus), each led by its engraving
+- 3.0 the Bible you can see (major): Today opens on the engraving and the arcs of the day's chapter; Map, Engravings and Stories reach every screen; a Mobbin pass and the commercial
+- 4.0 widgets: the verse of the day with its plate, and the day's reading, on iPhone, iPad and the Mac desktop
+- 5.0 Apple Watch: the verse of the day, a complication, the chapter read aloud
+- 6.0 iPad and Mac side by side: a chapter beside its cross references, or two versions in parallel
+- 7.0 Shortcuts and Siri: "read 1 Samuel 17", "what links to Psalm 23"
+- 8.0 sync highlights, notes and plans through iCloud, still no account
+- 9.0 the interface in many languages, and public domain Bibles beyond English (Luther 1545, Reina-Valera 1909, Louis Segond 1910)
+- 10.0 Strong's numbers on the King James: tap a word for its Hebrew or Greek and every verse that uses it
 
 ## Licensing
 
